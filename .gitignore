@@ -4,4 +4,4 @@ node_modules
 .eslintcache
 .vscode-test-web/
 *.vsix
-test-data
+
