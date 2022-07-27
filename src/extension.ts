@@ -4,10 +4,12 @@ import { GameViewProvider } from "./Game/GameView";
 
 // import init, { repl } from "../../clarinet/components/clarity-repl/pkg"
 
+// const initWasm = init();
+
 const { workspaceFolders } = workspace;
 const { uri: workspaceUri } = workspaceFolders![0];
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   console.log('"toshi-extension" is now active');
   vscode.commands.executeCommand("workbench.action.positionPanelRight");
   vscode.commands.executeCommand("workbench.action.maximizeEditor");
@@ -32,6 +34,8 @@ export function activate(context: vscode.ExtensionContext) {
   );
   context.subscriptions.push(startCommand);
 
+  // make sure wasm is loaded before calling the repl
+  // await initWasm;
   /*
     > instruction = sendToRepl(custom.clar + game.clar)
     // instructions == [toshi-move-forward, toshi-fight]

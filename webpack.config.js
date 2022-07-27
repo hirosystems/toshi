@@ -18,7 +18,7 @@ const webExtensionConfig = {
     libraryTarget: "commonjs",
   },
   resolve: {
-    mainFields: ["browser"],
+    mainFields: ["module", "main"],
     extensions: [".ts", ".js"],
     alias: {},
     fallback: { assert: require.resolve("assert") },
