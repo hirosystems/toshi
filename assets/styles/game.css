@@ -1,0 +1,46 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#game {
+  --padding: 20px;
+  max-width: 860px;
+  width: calc(100vw - calc(var(--padding) * 2));
+  height: 100vh;
+  padding: 0 var(--padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+}
+
+#grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  display: flex;
+}
+
+.tile {
+  width: 100%;
+  aspect-ratio: 1;
+  border: solid 0.5px silver;
+  color: white;
+}
+.tile.e {
+  background-color: royalblue;
+}
+.tile.s {
+  background-color: sandybrown;
+}
+.tile.g {
+  background-color: green;
+}

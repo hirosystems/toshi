@@ -1,0 +1,74 @@
+{
+  "name": "toshi-extension",
+  "displayName": "toshi-extension",
+  "description": "Toshi game",
+  "version": "0.0.1",
+  "publisher": "hugoclrd",
+  "private": true,
+  "license": "MIT",
+  "repository": "https://github.com/hirosystems/toshi-extension",
+  "engines": {
+    "vscode": "^1.59.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:toshi-extension.launchToshi"
+  ],
+  "browser": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "toshi-extension.launchToshi",
+        "title": "Launch Toshi"
+      }
+    ],
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "toshiPanel",
+          "title": "Toshi",
+          "icon": "assets/images/logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "toshiPanel": [
+        {
+          "type": "webview",
+          "id": "toshi-extension.gameView",
+          "name": "Toshi"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "dev:watch": "webpack --watch",
+    "dev:browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ./test-data",
+    "dev": "webpack; concurrently \"npm:dev:*\"",
+    "compile": "webpack",
+    "package-web": "webpack --mode production --devtool hidden-source-map"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.218",
+    "@types/vscode": "^1.59.0",
+    "@types/webpack-env": "^1.16.2",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "@vscode/test-web": "^0.0.29",
+    "concurrently": "^7.3.0",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^2.7.1",
+    "process": "^0.11.10",
+    "swc-loader": "^0.2.3",
+    "typescript": "^4.7.2",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
+  }
+}

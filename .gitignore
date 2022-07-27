@@ -1,0 +1,7 @@
+dist
+node_modules
+.npm
+.eslintcache
+.vscode-test-web/
+*.vsix
+test-data
