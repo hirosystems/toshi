@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { Instructions } from "../../common/types";
 
 import { Head } from "./html";
 import { getNonce } from "./utils";
@@ -23,6 +24,10 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
   private _view?: vscode.WebviewView;
 
   constructor(private readonly _extensionUri: vscode.Uri) {}
+
+  public sendInstructions(instruction: Instructions) {
+    this._view?.webview.postMessage(instruction);
+  }
 
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
@@ -51,11 +56,11 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
 
     const scriptSrc = vscode.Uri.joinPath(
       view.webview.options.localResourceRoots![0],
-      "./assets/dist/game.js"
+      "./assets/dist/game.js",
     );
     const syleSrc = vscode.Uri.joinPath(
       view.webview.options.localResourceRoots![0],
-      "./assets/styles/game.css"
+      "./assets/styles/game.css",
     );
 
     const clickHandler = () => {

@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
 import { window, workspace, Uri } from "vscode";
-import { GameViewProvider } from "./Game/GameView";
 
+import { GameViewProvider } from "./Game/GameView";
+import type { Instructions } from "../common/types";
 // import init, { repl } from "../../clarinet/components/clarity-repl/pkg"
 
 // const initWasm = init();
@@ -11,8 +12,9 @@ const { uri: workspaceUri } = workspaceFolders![0];
 
 export async function activate(context: vscode.ExtensionContext) {
   console.log('"toshi-extension" is now active');
+  vscode.commands.executeCommand("toshi-extension.gameView.focus");
   vscode.commands.executeCommand("workbench.action.positionPanelRight");
-  vscode.commands.executeCommand("workbench.action.maximizeEditor");
+  // vscode.commands.executeCommand("workbench.action.maximizeEditor");
 
   const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, "game.clar");
   vscode.workspace.openTextDocument(gameFile);
@@ -21,16 +23,61 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     window.registerWebviewViewProvider(
       GameViewProvider.viewType,
-      gameViewProvider
-    )
+      gameViewProvider,
+    ),
   );
+
+  const testInstructions = vscode.commands.registerCommand(
+    "toshi-extension.testInstructions",
+    () => {
+      const fake: Instructions = [
+        {
+          target: "console",
+          type: "error",
+          text: "error: unexpected '^'",
+        },
+        {
+          target: "console",
+          type: "print",
+          text: "some string the user printed",
+        },
+        {
+          target: "console",
+          type: "result",
+          text: "42",
+        },
+        {
+          target: "game",
+          type: "action",
+          args: ["move-forward", 2],
+        },
+        {
+          target: "game",
+          type: "action",
+          args: ["turn", "left"],
+        },
+        {
+          target: "game",
+          type: "action",
+          args: ["move-forward", 1],
+        },
+        {
+          target: "game",
+          type: "action",
+          args: ["fight"],
+        },
+      ];
+      gameViewProvider.sendInstructions(fake);
+    },
+  );
+  context.subscriptions.push(testInstructions);
 
   const startCommand = vscode.commands.registerCommand(
     "toshi-extension.launchToshi",
     () => {
       window.showInformationMessage("hello world from toshi-extension");
       vscode.commands.executeCommand("toshi-extension.gameView.focus");
-    }
+    },
   );
   context.subscriptions.push(startCommand);
 
