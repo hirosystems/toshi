@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "target": "es2020",
-    "outDir": "../dist",
-    "lib": ["es6", "WebWorker", "DOM"],
-    "sourceMap": true,
-    "rootDir": ".",
-    "strict": true
+    "lib": ["es2020", "WebWorker", "DOM"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true
   },
   "exclude": ["node_modules", ".vscode-test-web"]
 }

@@ -2,7 +2,7 @@ import { Uri, Webview } from "vscode";
 // import { Grid } from "./types";
 
 export const Head = (webview: Webview, stylePath: Uri, nonce: string) => {
-  const csp = `default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';`;
+  const csp = `default-src 'none'; style-src ${webview.cspSource}; img-src ${webview.cspSource};; script-src 'nonce-${nonce}';`;
 
   return /* html */ `<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

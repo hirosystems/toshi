@@ -10,6 +10,7 @@ html {
 #game {
   --padding: 20px;
   max-width: 860px;
+  min-width: 300px;
   width: calc(100vw - calc(var(--padding) * 2));
   height: 100vh;
   padding: 0 var(--padding);
@@ -30,17 +31,41 @@ html {
 }
 
 .tile {
+  position: relative;
   width: 100%;
   aspect-ratio: 1;
-  border: solid 0.5px silver;
   color: white;
 }
-.tile.e {
+.tile.n {
   background-color: royalblue;
 }
-.tile.s {
+.tile.S {
   background-color: sandybrown;
 }
-.tile.g {
+.tile.G {
   background-color: green;
+}
+
+.tile > .info {
+  position: absolute;
+  display: none;
+}
+
+.entity-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 12%;
+}
+.entity {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: red;
+}
+.entity.P {
+  background-image: url("../images/toshi.svg");
+  background-position: center;
 }
