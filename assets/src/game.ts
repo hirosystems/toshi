@@ -68,26 +68,25 @@ function main() {
     await delay(100); // small delay for the game to reset
     const instructions = event.data as Instructions;
 
-    // Handle console events
-    const consoleEvents = instructions.filter(
-      ({ target }) => target === "console",
-    );
-    for (const event of consoleEvents) {
-      if (event.type === "error") {
-        appendCaptainLog(event.text);
-      } else if (event.type === "print" || event.type === "result") {
-        appendCaptainLog(`${event.type}: ${event.text}`);
-      }
-    }
-
-    // Handle game actions
-    const actions = instructions.filter(({ target }) => target === "game");
-    for await (const action of actions) {
-      if (action.target === "game" && action.type === "action") {
-        const [func, ...args] = action.args;
+    for (const instruction of instructions) {
+      if (instruction.target === "console") {
+        if (instruction.type === "error") {
+          appendCaptainLog(instruction.text);
+        } else if (
+          instruction.type === "print" ||
+          instruction.type === "result"
+        ) {
+          appendCaptainLog(`${instruction.type}: ${instruction.text}`);
+        }
+      } else if (instruction.type === "action") {
+        console.log(instruction.args);
+        const [func, ...args] = instruction.args;
         const method = toCamelCase(func);
         let finished: boolean | undefined;
-        if (Object.keys(toshi).includes(method)) {
+        if (method === "fail") {
+          fail(args.join(' '));
+          return;
+        } else if (Object.keys(toshi).includes(method)) {
           try {
             // TODO: type safety
             // @ts-ignore
@@ -95,6 +94,7 @@ function main() {
           } catch (err) {
             if (err && err instanceof Error) {
               fail(err.message);
+              return;
             }
             break;
           }
