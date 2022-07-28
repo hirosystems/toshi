@@ -48,15 +48,15 @@ export function createToshi(lesson: Readonly<Lesson>) {
     $toshi.classList.add(`dir-${state.direction}`);
   }
 
-  // get the coordinates a the tile in front of Toshi
-  function _getAheadCoords(): Coords {
+  // get the coordinates of the tile in front of Toshi
+  function _getAheadCoords(n = 1): Coords {
     const dir = state.direction;
     const { x, y } = state.coords;
 
-    if (dir === "N") return { x, y: y - 1 };
-    if (dir === "S") return { x, y: y + 1 };
-    if (dir === "W") return { x: x - 1, y };
-    return { x: x + 1, y };
+    if (dir === "N") return { x, y: y - n };
+    if (dir === "S") return { x, y: y + n };
+    if (dir === "W") return { x: x - n, y };
+    return { x: x + n, y };
   }
 
   _setDirection();
@@ -97,9 +97,9 @@ export function createToshi(lesson: Readonly<Lesson>) {
     await delay(100);
   }
 
-  async function moveForward() {
+  async function moveForward(n = 1) {
     state = produce(state, (next) => {
-      next.coords = _getAheadCoords();
+      next.coords = _getAheadCoords(n);
     });
 
     const { x, y } = state.coords;
