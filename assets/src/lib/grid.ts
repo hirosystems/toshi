@@ -44,3 +44,8 @@ export function buildGrid(lesson: Lesson) {
 
   return $container;
 }
+
+export function deleteGrid() {
+  const $container = document.querySelector("#grid")!;
+  $container.replaceChildren();
+}
