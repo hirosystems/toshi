@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import { Direction, Player } from "../types";
+import { Coords, Direction, Lesson, Player } from "../types";
 import { createDiv } from "./dom";
 import { GRID_SIZE } from "./grid";
 import { delay } from "./helpers";
@@ -18,7 +18,9 @@ const rightTurns: Record<Direction, Direction> = {
   N: "E",
 };
 
-export function createToshi(player: Readonly<Player>) {
+export function createToshi(lesson: Readonly<Lesson>) {
+  const player = Object.freeze(lesson.player);
+
   const $toshi = createDiv("toshi");
   const $img = createDiv("toshi-img");
   $toshi.append($img);
@@ -34,6 +36,17 @@ export function createToshi(player: Readonly<Player>) {
   function _setDirection() {
     $toshi.classList.remove("dir-N", "dir-S", "dir-E", "dir-W");
     $toshi.classList.add(`dir-${state.direction}`);
+  }
+
+  // get the coordinates a the tile in front of Toshi
+  function _getAheadCoords(): Coords {
+    const dir = state.direction;
+    const { x, y } = state.coords;
+
+    if (dir === "N") return { x, y: y - 1 };
+    if (dir === "S") return { x, y: y + 1 };
+    if (dir === "W") return { x: x - 1, y };
+    return { x: x + 1, y };
   }
 
   _setDirection();
@@ -76,19 +89,24 @@ export function createToshi(player: Readonly<Player>) {
 
   async function moveForward() {
     state = produce(state, (next) => {
-      if (state.direction === "N") next.coords.y -= 1;
-      if (state.direction === "S") next.coords.y += 1;
-      if (state.direction === "W") next.coords.x -= 1;
-      if (state.direction === "E") next.coords.x += 1;
+      next.coords = _getAheadCoords();
     });
 
     const { x, y } = state.coords;
     if (x >= GRID_SIZE || x < 0 || y >= GRID_SIZE || y < 0) {
-      // TODO: handle illegal moves
-      return;
+      throw new Error("moving-out-of-grid");
     }
     _setPosition();
     await delay(400);
+  }
+
+  async function collectCoin() {
+    const { x, y } = _getAheadCoords();
+    const entityAbove = lesson.entities[y][x];
+    if (entityAbove !== "X") {
+      throw new Error("no-coin-ahead");
+    }
+    console.log("level done!");
   }
 
   return {
@@ -97,6 +115,7 @@ export function createToshi(player: Readonly<Player>) {
     reveal,
     turnLeft,
     turnRight,
+    collectCoin,
     moveForward,
   };
 }

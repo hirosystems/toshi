@@ -19,6 +19,13 @@
     )
 )
 
+(define-private (collect-coin)
+    (begin
+        (print "@ACTION@: collect-coin")
+        true
+    )
+)
+
 (define-private (fight)
     (begin
         (print "@ACTION@: fight")

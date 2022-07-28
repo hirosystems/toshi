@@ -1,6 +1,6 @@
 import { Lesson } from "../types";
 
-export const lesson1: Lesson = {
+export const mission2: Lesson = {
   grid: [
     ["S", "n", "n", "n", "n", "n", "n", "n", "n", "G"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
@@ -20,13 +20,13 @@ export const lesson1: Lesson = {
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
-    ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
+    ["n", "n", "n", "n", "n", "X", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
   ],
   player: {
-    coords: { x: 1, y: 3 },
+    coords: { x: 2, y: 3 },
     direction: "E",
   },
 };

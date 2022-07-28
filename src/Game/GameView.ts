@@ -50,24 +50,29 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
     const { _view: view } = this;
     if (!view) return "";
     const nonce = getNonce();
+    const root = view.webview.options.localResourceRoots![0];
 
-    const scriptSrc = vscode.Uri.joinPath(
-      view.webview.options.localResourceRoots![0],
-      "./assets/dist/game.js",
-    );
-    const syleSrc = vscode.Uri.joinPath(
-      view.webview.options.localResourceRoots![0],
-      "./assets/styles/game.css",
-    );
+    const scriptSrc = vscode.Uri.joinPath(root, "./assets/dist/game.js");
+    const syleSrcs = [
+      vscode.Uri.joinPath(root, "./assets/styles/animations.css"),
+      vscode.Uri.joinPath(root, "./assets/styles/game.css"),
+    ];
 
     return /* html */ `<!DOCTYPE html>
       <html lang="en">
-      ${Head(view.webview, syleSrc, nonce)}
+      ${Head(view.webview, syleSrcs, nonce)}
 
       <body>
         <div id="game">
-          <header id="controls">
-            <button id="run">> Run</button>
+          <header>
+            <div id="controls">
+              <button id="previous" disabled>< Prev</button>
+              <button id="run">Run</button>
+              <button id="next" disabled>Next ></button>
+            </div>
+            <div>
+              <p id="end-message"></p>
+            </div>
           </header>
           <main id="grid"></main>
           <footer>

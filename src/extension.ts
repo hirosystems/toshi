@@ -112,7 +112,6 @@ async function run(gameViewProvider: GameViewProvider) {
 
   // Read the hidden code
   const hiddenCode = require(`./clarity/${activeFile.fsPath.split("/").pop()}`);
-  console.log("hiddenCode", hiddenCode);
   const result = interpret(`${hiddenCode}\n${userCode}`);
   const instructions: Instructions = [];
 

@@ -1,7 +1,7 @@
 import { Uri, Webview } from "vscode";
 // import { Grid } from "./types";
 
-export const Head = (webview: Webview, stylePath: Uri, nonce: string) => {
+export const Head = (webview: Webview, stylePaths: Uri[], nonce: string) => {
   const csp = `default-src 'none'; style-src ${webview.cspSource}; img-src ${webview.cspSource};; script-src 'nonce-${nonce}';`;
 
   return /* html */ `<head>
@@ -9,6 +9,13 @@ export const Head = (webview: Webview, stylePath: Uri, nonce: string) => {
     <meta http-equiv="Content-Security-Policy" content="${csp}" />
     <meta charset="UTF-8" />
     <title>Toshi</title>
-    <link href="${webview.asWebviewUri(stylePath)}" rel="stylesheet" />
+    ${stylePaths
+      .map(
+        (path) =>
+          /* html */ `<link href="${webview.asWebviewUri(
+            path,
+          )}" rel="stylesheet" />`,
+      )
+      .join("")}
   </head>`;
 };

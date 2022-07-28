@@ -1,4 +1,4 @@
-import { Coord, Entity, Lesson, Tile } from "../types";
+import { Coords, Entity, Lesson, Tile } from "../types";
 import { createDiv } from "./dom";
 
 export const GRID_SIZE = 10;
@@ -7,7 +7,7 @@ function createLine() {
   return createDiv("line");
 }
 
-function createTile(type: Tile, coord: Coord) {
+function createTile(type: Tile, coord: Coords) {
   const $info = createDiv("info", `${coord.x}x${coord.y}`);
 
   const $tile = createDiv(["tile", type]);
