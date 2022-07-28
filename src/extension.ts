@@ -61,7 +61,7 @@ async function run(gameViewProvider: GameViewProvider) {
   const userCode = fileArrayToString(await fs.readFile(activeFile));
 
   // Read the hidden code
-  const hiddenCode = require(`./clarity/${activeFile.fsPath.split("/").pop()}`);
+  const hiddenCode = require("./clarity/base.clar");
   const result = interpret(`${hiddenCode}\n${userCode}`);
   const instructions: Instructions = [];
 
