@@ -8,9 +8,7 @@ function createLine() {
 }
 
 function createTile(type: Tile, coord: Coord) {
-  const $info = document.createElement("div");
-  $info.classList.add("info");
-  $info.textContent = `${coord.x}x${coord.y}`;
+  const $info = createDiv("info", `${coord.x}x${coord.y}`);
 
   const $tile = createDiv(["tile", type]);
   $tile.appendChild($info);

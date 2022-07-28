@@ -1,7 +1,20 @@
-import { Player } from "../types";
+import { Direction, Player } from "../types";
 import { createDiv } from "./dom";
 import { GRID_SIZE } from "./grid";
 import { delay } from "./helpers";
+
+const leftTurns: Record<Direction, Direction> = {
+  E: "N",
+  N: "W",
+  W: "S",
+  S: "E",
+};
+const rightTurns: Record<Direction, Direction> = {
+  E: "S",
+  S: "W",
+  W: "N",
+  N: "E",
+};
 
 export function createToshi(player: Player) {
   const $toshi = createDiv("toshi");
@@ -32,17 +45,7 @@ export function createToshi(player: Player) {
 
   function getTurn(to: "left" | "right") {
     const { direction: dir } = state;
-    if (to === "left") {
-      if (dir === "E") return "N";
-      if (dir === "N") return "W";
-      if (dir === "W") return "S";
-      return "E";
-    } else {
-      if (dir === "W") return "S";
-      if (dir === "S") return "W";
-      if (dir === "E") return "N";
-      return "E";
-    }
+    return to === "left" ? leftTurns[dir] : rightTurns[dir];
   }
 
   async function turnLeft() {

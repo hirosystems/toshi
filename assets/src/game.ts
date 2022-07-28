@@ -10,7 +10,7 @@ import { delay, toCamelCase } from "./lib/helpers";
 const vscode = acquireVsCodeApi();
 
 async function afterInit(toshi: ReturnType<typeof createToshi>) {
-  delay(500);
+  await delay(500);
   toshi.reveal();
 }
 
