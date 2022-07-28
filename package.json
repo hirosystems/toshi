@@ -22,15 +22,28 @@
     "commands": [
       {
         "command": "toshi-extension.launchToshi",
-        "title": "Launch Toshi"
+        "title": "Launch Toshi",
+        "category": "Toshi"
       },
       {
         "command": "toshi-extension.testInstructions",
-        "title": "Test Instructions"
+        "title": "Test Instructions",
+        "category": "Toshi"
       },
       {
         "command": "toshi-extension.runCode",
-        "title": "Run Code"
+        "title": "Run Code",
+        "category": "Toshi"
+      },
+      {
+        "command": "toshi-extension.nextLesson",
+        "title": "Next Lesson",
+        "category": "Toshi"
+      },
+      {
+        "command": "toshi-extension.prevLesson",
+        "title": "Prev Lesson",
+        "category": "Toshi"
       }
     ],
     "viewsContainers": {
