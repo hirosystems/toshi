@@ -69,6 +69,23 @@ function main() {
     const instructions = event.data as Instructions;
     const actions = instructions.filter(({ target }) => target === "game");
 
+    // Handle console events
+    const consoleEvents = instructions.filter(
+      ({ target }) => target === "console",
+    );
+    const $console = <HTMLTextAreaElement>document.getElementById("console");
+    if ($console != null) {
+      $console.value = "";
+      for (const event of consoleEvents) {
+        if (event.type === "error") {
+          $console.value += event.text;
+        } else if (event.type === "print" || event.type === "result") {
+          $console.value += `${event.type}: ${event.text}\n`;
+        }
+      }
+    }
+
+    // Handle game actions
     for await (const action of actions) {
       if (action.target === "game" && action.type === "action") {
         const [func, ...args] = action.args;

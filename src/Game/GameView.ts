@@ -77,7 +77,10 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
             <button id="run" onclick="${clickHandler}">> Run</button>
           </header>
           <main id="grid"></main>
-          <footer></footer>
+          <footer>
+            <h1>Console</h1>
+            <textarea id="console" rows="8" cols="80"></textarea>
+          </footer>
         </div>
         <script nonce=${nonce} src="${scriptSrc}"></script>
       </body>

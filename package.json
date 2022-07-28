@@ -27,6 +27,10 @@
       {
         "command": "toshi-extension.testInstructions",
         "title": "Test Instructions"
+      },
+      {
+        "command": "toshi-extension.runCode",
+        "title": "Run Code"
       }
     ],
     "viewsContainers": {
