@@ -1,1 +1,1 @@
-(define-data-var counter int 0)
+# This is game.clar
