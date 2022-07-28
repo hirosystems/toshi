@@ -1,3 +1,5 @@
+(define-private (ahoy) "Ahoy!")
+
 (define-private (move-forward)
     (begin
         (print "@ACTION@: move-forward")
