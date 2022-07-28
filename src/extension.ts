@@ -13,8 +13,8 @@ const initWasm = init();
 const { workspaceFolders, fs } = workspace;
 const { uri: workspaceUri } = workspaceFolders![0];
 
-const states = ["lesson1", "mission1"];
-let currentState = 0;
+let currentLesson = 1;
+const lastLesson = 3;
 
 export async function activate(context: vscode.ExtensionContext) {
   console.log('"toshi-extension" is now active');
@@ -22,7 +22,7 @@ export async function activate(context: vscode.ExtensionContext) {
   vscode.commands.executeCommand("workbench.action.positionPanelRight");
   // vscode.commands.executeCommand("workbench.action.maximizeEditor");
 
-  const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, `${states[0]}.clar`);
+  const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, `lesson1.clar`);
   vscode.workspace.openTextDocument(gameFile);
 
   const gameViewProvider = new GameViewProvider(context.extensionUri);
@@ -42,18 +42,15 @@ export async function activate(context: vscode.ExtensionContext) {
   const nextLesson = vscode.commands.registerCommand(
     "toshi-extension.nextLesson",
     () => {
-      if (currentState === states.length - 1) {
+      if (currentLesson === lastLesson) {
         window.showErrorMessage("No more lessons.");
         return;
       }
 
-      currentState += 1;
-      const current = states[currentState];
+      currentLesson += 1;
+      const current = `lesson${currentLesson}.clar`;
 
-      const gameFile: vscode.Uri = Uri.joinPath(
-        workspaceUri,
-        `${current}.clar`,
-      );
+      const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, current);
       window.showInformationMessage(`opening: ${gameFile}`);
       vscode.workspace.openTextDocument(gameFile);
     },
@@ -63,18 +60,15 @@ export async function activate(context: vscode.ExtensionContext) {
   const prevLesson = vscode.commands.registerCommand(
     "toshi-extension.prevLesson",
     () => {
-      if (currentState === 0) {
+      if (currentLesson === 1) {
         window.showErrorMessage("No more lessons.");
         return;
       }
 
-      currentState -= 1;
-      const current = states[currentState];
+      currentLesson -= 1;
+      const current = `lesson${currentLesson}.clar`;
 
-      const gameFile: vscode.Uri = Uri.joinPath(
-        workspaceUri,
-        `${current}.clar`,
-      );
+      const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, current);
       vscode.workspace.openTextDocument(gameFile);
     },
   );
