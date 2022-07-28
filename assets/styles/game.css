@@ -62,13 +62,17 @@ html {
   bottom: 0;
   right: 0;
   left: 0;
-  padding: 12%;
+  padding: 20%;
 }
 #grid .entity {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background-color: red;
+  background-size: cover;
+}
+#grid .entity.X {
+  background-image: url("../../assets/images/stx.svg");
+  animation: rotate-scale-up 3s linear infinite both;
 }
 
 .toshi {

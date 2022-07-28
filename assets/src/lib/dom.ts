@@ -7,3 +7,8 @@ export function createDiv(classes: string[] | string, text?: string) {
 
   return $el;
 }
+
+export function displayFailMessage(message: string) {
+  const $container = document.querySelector("#end-message")!;
+  $container.textContent = message;
+}

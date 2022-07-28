@@ -8,7 +8,7 @@ export type Line = [Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile];
 // a *grid* is 8 *lines*
 export type Grid = [Line, Line, Line, Line, Line, Line, Line, Line, Line, Line];
 
-export type Coord = {
+export type Coords = {
   x: number;
   y: number;
 };
@@ -45,7 +45,7 @@ export type EntityGrid = [
 ];
 
 export type Player = {
-  coords: Coord;
+  coords: Coords;
   direction: Direction;
 };
 

@@ -1,14 +1,17 @@
-import { lesson1 } from "./maps/lesson1";
+import * as missions from "./maps/";
 
 import type { Instructions } from "../../common/types";
 import { buildGrid } from "./lib/grid";
 import { Lesson } from "./types";
 import { createToshi } from "./lib/toshi";
 import { delay, toCamelCase } from "./lib/helpers";
+import { displayFailMessage } from "./lib/dom";
 
 // @ts-ignore
 const vscode = acquireVsCodeApi();
 
+type Status = `mission${number}`;
+const status: Status = "mission1";
 let isGameInProgress = false;
 
 async function afterInit(toshi: ReturnType<typeof createToshi>) {
@@ -18,7 +21,7 @@ async function afterInit(toshi: ReturnType<typeof createToshi>) {
 
 function initLevel(lesson: Lesson) {
   const $container = buildGrid(lesson);
-  const toshi = createToshi(Object.freeze(lesson.player));
+  const toshi = createToshi(Object.freeze(lesson));
   $container.appendChild(toshi.$toshi);
 
   afterInit(toshi);
@@ -28,7 +31,8 @@ function initLevel(lesson: Lesson) {
 function main() {
   const $runButton = document.getElementById("run")!;
 
-  const toshi = initLevel(lesson1);
+  const toshi = initLevel(missions.mission1);
+
   function gameIsRunning() {
     isGameInProgress = true;
     $runButton.setAttribute("disabled", "true");
@@ -40,10 +44,16 @@ function main() {
     $runButton.removeAttribute("disabled");
   }
 
+  function win() {}
+
+  function fail(reason: string) {
+    console.log("fail", reason);
+    displayFailMessage(`Mission failed (reason: ${reason})`);
+  }
+
   window.addEventListener("message", async (event) => {
-    await delay(500);
+    await delay(200); // small delay for the game to reset
     const instructions = event.data as Instructions;
-    const actions = instructions.filter(({ target }) => target === "game");
 
     // Handle console events
     const consoleEvents = instructions.filter(
@@ -62,14 +72,23 @@ function main() {
     }
 
     // Handle game actions
+    const actions = instructions.filter(({ target }) => target === "game");
     for await (const action of actions) {
       if (action.target === "game" && action.type === "action") {
         const [func, ...args] = action.args;
         const method = toCamelCase(func);
+        console.log("method", method);
         if (Object.keys(toshi).includes(method)) {
-          // TODO: type safety
-          // @ts-ignore
-          await toshi[method](...args);
+          try {
+            // TODO: type safety
+            // @ts-ignore
+            await toshi[method](...args);
+          } catch (err) {
+            if (err && err instanceof Error) {
+              fail(err.message);
+            }
+            break;
+          }
         }
       }
     }
