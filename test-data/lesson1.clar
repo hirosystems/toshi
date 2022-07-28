@@ -35,4 +35,5 @@
 
 (ahoy)
 
-;; **Mission** Press the Run button on the right to see what happens...
+;; ** Mission **
+;;   Press the Run button on the right to see what happens...

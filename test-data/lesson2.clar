@@ -11,5 +11,5 @@
 ;;   turn-right:   Toshi turns 90 degrees right
 ;;   collect:      Toshi collects an item that is directly in front of him
 
-;; **Mission** Put together a sequence of function calls to help Toshi get to
-;;             the map.
+;; ** Mission **
+;;   Put together a sequence of function calls to help Toshi get to the map.
