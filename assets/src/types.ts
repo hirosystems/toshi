@@ -13,8 +13,10 @@ export type Coord = {
   y: number;
 };
 
-// *entities* can be "empty" | "player" | "enemy" | "stx" |
-export type Entity = "n" | "P" | "E" | "S";
+export type Direction = "N" | "S" | "W" | "E";
+
+// *entities* can be "empty" | "enemy" | "treasure"
+export type Entity = "n" | "E" | "T";
 
 export type EntityLine = [
   Entity,
@@ -41,3 +43,15 @@ export type EntityGrid = [
   EntityLine,
   EntityLine,
 ];
+
+export type Player = {
+  coords: Coord;
+  direction: Direction;
+};
+
+// lesson
+export type Lesson = {
+  grid: Grid;
+  entities: EntityGrid;
+  player: Player;
+};
