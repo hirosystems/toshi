@@ -11,7 +11,7 @@ const delay = (ms: number) =>
   });
 
 // @ts-ignore
-// const vscode = acquireVsCodeApi();
+const vscode = acquireVsCodeApi();
 
 function createLine() {
   const $line = document.createElement("div");
@@ -44,12 +44,6 @@ function createEntity(type: Entity) {
   return $entityContainer;
 }
 
-function runCode() {
-  console.log("RUN");
-  // TODO: Can we do this here?
-  // vscode.commands.executeCommand("toshi-extension.runCode");
-}
-
 function main() {
   const $container = document.querySelector("#grid")!;
   const { grid, entities } = lesson1;
@@ -66,9 +60,6 @@ function main() {
     });
     $container.appendChild($line);
   });
-
-  // vscode.postMessage((e: unknown) => {
-  // });
 
   window.addEventListener("message", async (event) => {
     console.log(event.data);
@@ -101,7 +92,9 @@ function main() {
     }
   });
 
-  document.getElementById("run")?.addEventListener("click", runCode);
+  document.getElementById("run")?.addEventListener("click", function runCode() {
+    vscode.postMessage({ command: "runCode" });
+  });
 }
 
 document.addEventListener("DOMContentLoaded", main);

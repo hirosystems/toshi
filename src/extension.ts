@@ -3,8 +3,8 @@ import { window, workspace, Uri } from "vscode";
 
 import { GameViewProvider } from "./Game/GameView";
 import type { Instructions } from "../common/types";
-import lesson1 from "./lessons/lesson1.clar";
-import mission1 from "./missions/mission1.clar";
+// import lesson1 from "./lessons/lesson1.clar";
+// import mission1 from "./missions/mission1.clar";
 
 // // eslint-disable-next-line camelcase
 import init, { interpret } from "../../clarinet/components/clarity-repl/pkg";

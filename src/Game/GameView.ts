@@ -4,8 +4,6 @@ import { Instructions } from "../../common/types";
 import { Head } from "./html";
 import { getNonce } from "./utils";
 
-const { window } = vscode;
-
 type ViewEvent = {
   command: string;
   data: Record<string, any>;
@@ -15,7 +13,7 @@ function isValidEvent(e: unknown): e is ViewEvent {
   if (!e || typeof e !== "object") {
     return false;
   }
-  return "command" in e && "data" in e;
+  return "command" in e;
 }
 
 export class GameViewProvider implements vscode.WebviewViewProvider {
@@ -38,11 +36,10 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
     };
 
     this._view.webview.onDidReceiveMessage((e: unknown) => {
-      if (!isValidEvent(e) || !window.activeTextEditor) return;
+      if (!isValidEvent(e)) return;
 
-      if (e.command === "blbl") {
-        // window.activeTextEditor.revealRange(r);
-        // window.activeTextEditor.setDecorations(selectedDecoration, [r]);
+      if (e.command === "runCode") {
+        vscode.commands.executeCommand("toshi-extension.runCode");
       }
     });
 
