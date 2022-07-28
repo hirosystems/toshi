@@ -9,6 +9,8 @@ import { delay, toCamelCase } from "./lib/helpers";
 // @ts-ignore
 const vscode = acquireVsCodeApi();
 
+let isGameInProgress = false;
+
 async function afterInit(toshi: ReturnType<typeof createToshi>) {
   await delay(500);
   toshi.reveal();
@@ -16,7 +18,7 @@ async function afterInit(toshi: ReturnType<typeof createToshi>) {
 
 function initLevel(lesson: Lesson) {
   const $container = buildGrid(lesson);
-  const toshi = createToshi(lesson.player);
+  const toshi = createToshi(Object.freeze(lesson.player));
   $container.appendChild(toshi.$toshi);
 
   afterInit(toshi);
@@ -24,9 +26,22 @@ function initLevel(lesson: Lesson) {
 }
 
 function main() {
+  const $runButton = document.getElementById("run")!;
+
   const toshi = initLevel(lesson1);
+  function gameIsRunning() {
+    isGameInProgress = true;
+    $runButton.setAttribute("disabled", "true");
+    toshi.reset();
+  }
+
+  function gameIsDone() {
+    isGameInProgress = false;
+    $runButton.removeAttribute("disabled");
+  }
 
   window.addEventListener("message", async (event) => {
+    await delay(500);
     const instructions = event.data as Instructions;
     const actions = instructions.filter(({ target }) => target === "game");
 
@@ -58,10 +73,14 @@ function main() {
         }
       }
     }
+
+    gameIsDone();
   });
 
-  document.getElementById("run")?.addEventListener("click", function runCode() {
+  $runButton.addEventListener("click", function runCode() {
+    if (isGameInProgress) return;
     vscode.postMessage({ command: "runCode" });
+    gameIsRunning();
   });
 }
 

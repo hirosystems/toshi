@@ -1,3 +1,5 @@
+import produce from "immer";
+
 import { Direction, Player } from "../types";
 import { createDiv } from "./dom";
 import { GRID_SIZE } from "./grid";
@@ -16,28 +18,36 @@ const rightTurns: Record<Direction, Direction> = {
   N: "E",
 };
 
-export function createToshi(player: Player) {
+export function createToshi(player: Readonly<Player>) {
   const $toshi = createDiv("toshi");
   const $img = createDiv("toshi-img");
   $toshi.append($img);
 
-  const state = { ...player };
+  let state = produce(player, (nextState) => nextState);
 
-  async function _setPosition() {
+  function _setPosition() {
     const { x, y } = state.coords;
     $toshi.style.left = `${x * GRID_SIZE}%`;
     $toshi.style.top = `${y * GRID_SIZE}%`;
-    await delay(500);
   }
 
-  async function _setDirection() {
+  function _setDirection() {
     $toshi.classList.remove("dir-N", "dir-S", "dir-E", "dir-W");
     $toshi.classList.add(`dir-${state.direction}`);
-    await delay(150);
   }
 
-  _setPosition();
   _setDirection();
+  _setPosition();
+
+  function reset() {
+    $toshi.classList.add("no-transition");
+    state = produce(player, (nextState) => nextState);
+    _setDirection();
+    _setPosition();
+    setTimeout(() => {
+      $toshi.classList.remove("no-transition");
+    }, 10);
+  }
 
   function reveal() {
     $toshi.classList.add("visible");
@@ -49,32 +59,41 @@ export function createToshi(player: Player) {
   }
 
   async function turnLeft() {
-    state.direction = getTurn("left");
-    await _setDirection();
+    state = produce(state, (next) => {
+      next.direction = getTurn("left");
+    });
+    _setDirection();
+    await delay(100);
   }
 
   async function turnRight() {
-    state.direction = getTurn("right");
-
-    await _setDirection();
+    state = produce(state, (next) => {
+      next.direction = getTurn("right");
+    });
+    _setDirection();
+    await delay(100);
   }
 
   async function moveForward() {
-    if (state.direction === "N") state.coords.y -= 1;
-    if (state.direction === "S") state.coords.y += 1;
-    if (state.direction === "W") state.coords.x -= 1;
-    if (state.direction === "E") state.coords.x += 1;
+    state = produce(state, (next) => {
+      if (state.direction === "N") next.coords.y -= 1;
+      if (state.direction === "S") next.coords.y += 1;
+      if (state.direction === "W") next.coords.x -= 1;
+      if (state.direction === "E") next.coords.x += 1;
+    });
 
     const { x, y } = state.coords;
     if (x >= GRID_SIZE || x < 0 || y >= GRID_SIZE || y < 0) {
       // TODO: handle illegal moves
       return;
     }
-    await _setPosition();
+    _setPosition();
+    await delay(400);
   }
 
   return {
     $toshi,
+    reset,
     reveal,
     turnLeft,
     turnRight,

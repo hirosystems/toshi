@@ -67,6 +67,10 @@ const gameConfig = {
         exclude: /node_modules/,
         use: [{ loader: "swc-loader" }],
       },
+      {
+        test: /\.m?js/,
+        resolve: { fullySpecified: false },
+      },
     ],
   },
   plugins: [new webpack.ProvidePlugin({ process: "process/browser" })],

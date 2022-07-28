@@ -3,10 +3,9 @@ import { window, workspace, Uri } from "vscode";
 
 import { GameViewProvider } from "./Game/GameView";
 import type { Instructions } from "../common/types";
-// import lesson1 from "./lessons/lesson1.clar";
-// import mission1 from "./missions/mission1.clar";
+// @ts-ignore
+// import lesson1 from "./clarity/lesson1.clar";
 
-// // eslint-disable-next-line camelcase
 import init, { interpret } from "../../clarinet/components/clarity-repl/pkg";
 
 const initWasm = init();
@@ -34,66 +33,9 @@ export async function activate(context: vscode.ExtensionContext) {
     ),
   );
 
-  const testInstructions = vscode.commands.registerCommand(
-    "toshi-extension.testInstructions",
-    () => {
-      const fake: Instructions = [
-        {
-          target: "console",
-          type: "error",
-          text: "error: unexpected '^'",
-        },
-        {
-          target: "console",
-          type: "print",
-          text: "some string the user printed",
-        },
-        {
-          target: "console",
-          type: "result",
-          text: "42",
-        },
-        {
-          target: "game",
-          type: "action",
-          args: ["move-forward"],
-        },
-        {
-          target: "game",
-          type: "action",
-          args: ["move-forward"],
-        },
-        {
-          target: "game",
-          type: "action",
-          args: ["turn-left"],
-        },
-        {
-          target: "game",
-          type: "action",
-          args: ["move-forward"],
-        },
-        {
-          target: "game",
-          type: "action",
-          args: ["turn-right"],
-        },
-        {
-          target: "game",
-          type: "action",
-          args: ["move-forward"],
-        },
-      ];
-      gameViewProvider.sendInstructions(fake);
-    },
-  );
-  context.subscriptions.push(testInstructions);
-
   const runCode = vscode.commands.registerCommand(
     "toshi-extension.runCode",
-    async () => {
-      await run(gameViewProvider);
-    },
+    () => run(gameViewProvider),
   );
   context.subscriptions.push(runCode);
 
@@ -170,7 +112,7 @@ async function run(gameViewProvider: GameViewProvider) {
 
   // Read the hidden code
   const hiddenCode = require(`./clarity/${activeFile.fsPath.split("/").pop()}`);
-
+  console.log("hiddenCode", hiddenCode);
   const result = interpret(`${hiddenCode}\n${userCode}`);
   const instructions: Instructions = [];
 

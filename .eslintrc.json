@@ -12,6 +12,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "no-useless-constructor": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "prefer-const": "warn"
   }
 }

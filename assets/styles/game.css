@@ -71,7 +71,7 @@ html {
   background-color: red;
 }
 
-#grid > .toshi {
+.toshi {
   position: absolute;
   top: 0%;
   left: 0%;
@@ -82,25 +82,28 @@ html {
   transition: top 300ms ease-in-out, left 300ms ease-in-out,
     opacity 300ms ease-out, transform 300ms ease-in-out;
 }
-#grid > .toshi .toshi-img {
+.toshi.visible {
+  opacity: 1;
+}
+.toshi.no-transition {
+  transition: none;
+}
+.toshi .toshi-img {
   width: 100%;
   aspect-ratio: 1;
   background-image: url(../images/toshi/s.png);
   background-position: center;
   background-size: contain;
 }
-#grid > .toshi.visible {
-  opacity: 1;
-}
-#grid > .toshi.dir-N .toshi-img {
+.toshi.dir-N .toshi-img {
   background-image: url(../images/toshi/n.png);
 }
-#grid > .toshi.dir-S .toshi-img {
+.toshi.dir-S .toshi-img {
   background-image: url(../images/toshi/s.png);
 }
-#grid > .toshi.dir-E .toshi-img {
+.toshi.dir-E .toshi-img {
   background-image: url(../images/toshi/e.png);
 }
-#grid > .toshi.dir-W .toshi-img {
+.toshi.dir-W .toshi-img {
   background-image: url(../images/toshi/w.png);
 }
