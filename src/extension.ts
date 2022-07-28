@@ -56,22 +56,32 @@ export async function activate(context: vscode.ExtensionContext) {
         {
           target: "game",
           type: "action",
-          args: ["move-forward", 2],
+          args: ["move-forward"],
         },
         {
           target: "game",
           type: "action",
-          args: ["turn", "left"],
+          args: ["move-forward"],
         },
         {
           target: "game",
           type: "action",
-          args: ["move-forward", 1],
+          args: ["turn-left"],
         },
         {
           target: "game",
           type: "action",
-          args: ["fight"],
+          args: ["move-forward"],
+        },
+        {
+          target: "game",
+          type: "action",
+          args: ["turn-right"],
+        },
+        {
+          target: "game",
+          type: "action",
+          args: ["move-forward"],
         },
       ];
       gameViewProvider.sendInstructions(fake);

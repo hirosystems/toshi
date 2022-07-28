@@ -2,9 +2,13 @@ html {
   box-sizing: border-box;
 }
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
+}
+
+:root {
+  --grid-size: 10;
 }
 
 #game {
@@ -22,36 +26,37 @@ html {
 }
 
 #grid {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.line {
+#grid .line {
   display: flex;
 }
 
-.tile {
+#grid .tile {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
   color: white;
 }
-.tile.n {
+#grid .tile.n {
   background-color: royalblue;
 }
-.tile.S {
+#grid .tile.S {
   background-color: sandybrown;
 }
-.tile.G {
+#grid .tile.G {
   background-color: green;
 }
 
-.tile > .info {
+#grid .tile > .info {
   position: absolute;
   display: none;
 }
 
-.entity-container {
+#grid .entity-container {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -59,13 +64,43 @@ html {
   left: 0;
   padding: 12%;
 }
-.entity {
+#grid .entity {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
   background-color: red;
 }
-.entity.P {
-  background-image: url("../images/toshi.svg");
+
+#grid > .toshi {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: calc(100% / var(--grid-size));
+  padding: 2%;
+  aspect-ratio: 1;
+  opacity: 0;
+  transition: top 300ms ease-in-out, left 300ms ease-in-out,
+    opacity 300ms ease-out, transform 300ms ease-in-out;
+}
+#grid > .toshi .toshi-img {
+  width: 100%;
+  aspect-ratio: 1;
+  background-image: url(../images/toshi/s.png);
   background-position: center;
+  background-size: contain;
+}
+#grid > .toshi.visible {
+  opacity: 1;
+}
+#grid > .toshi.dir-N .toshi-img {
+  background-image: url(../images/toshi/n.png);
+}
+#grid > .toshi.dir-S .toshi-img {
+  background-image: url(../images/toshi/s.png);
+}
+#grid > .toshi.dir-E .toshi-img {
+  background-image: url(../images/toshi/e.png);
+}
+#grid > .toshi.dir-W .toshi-img {
+  background-image: url(../images/toshi/w.png);
 }

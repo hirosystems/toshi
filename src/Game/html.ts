@@ -12,15 +12,3 @@ export const Head = (webview: Webview, stylePath: Uri, nonce: string) => {
     <link href="${webview.asWebviewUri(stylePath)}" rel="stylesheet" />
   </head>`;
 };
-
-// export const GridView = (grid: Grid) => {
-//   return /* html */ `<div id="grid">
-//     ${grid
-//       .map(
-//         (line) => /* html */ `<div class="line">
-//           ${line.map((t) => /* html */ `<div class="tile">${t}</div>`).join("")}
-//         </div>`
-//       )
-//       .join("")}
-//     </div>`;
-// };
