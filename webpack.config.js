@@ -34,6 +34,10 @@ const webExtensionConfig = {
         test: /\.wasm$/,
         type: "asset/inline",
       },
+      {
+        test: /\.clar$/,
+        type: "asset/source",
+      },
     ],
   },
   plugins: [new webpack.ProvidePlugin({ process: "process/browser" })],
