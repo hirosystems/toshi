@@ -8,7 +8,21 @@ export function createDiv(classes: string[] | string, text?: string) {
   return $el;
 }
 
-export function displayFailMessage(message: string) {
-  const $container = document.querySelector("#end-message")!;
-  $container.textContent = message;
+export function appendCaptainLog(message: string) {
+  const $console = <HTMLDivElement>document.querySelector("#console")!;
+
+  const $text = document.createElement("p");
+  $text.textContent = message;
+
+  $console.prepend($text);
+}
+
+export function deleteCaptainLogs() {
+  const $console = document.querySelector("#console")!;
+  $console.replaceChildren();
+}
+
+export function enableNextButton() {
+  const $nextButton = document.querySelector("#next")!;
+  $nextButton.removeAttribute("disabled");
 }

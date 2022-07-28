@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import { Coords, Direction, Lesson, Player } from "../types";
+import { Coords, Direction, Lesson } from "../types";
 import { createDiv } from "./dom";
 import { GRID_SIZE } from "./grid";
 import { delay } from "./helpers";
@@ -106,7 +106,7 @@ export function createToshi(lesson: Readonly<Lesson>) {
     if (entityAbove !== "X") {
       throw new Error("no-coin-ahead");
     }
-    console.log("level done!");
+    return true;
   }
 
   return {
