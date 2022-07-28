@@ -4,4 +4,5 @@ node_modules
 .eslintcache
 .vscode-test-web/
 *.vsix
+.DS_Store
 

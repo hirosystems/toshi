@@ -1,6 +1,6 @@
 // type of a 10x10 *grid*
-// *tiles* can be "none" | "sand" | "grass" |
-export type Tile = "n" | "S" | "G";
+// *tiles* can be "none" | "sand" | "grass" | "wood"
+export type Tile = "n" | "S" | "G" | "W";
 
 // a *line* contains 8 *tiles*
 export type Line = [Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile];
@@ -15,8 +15,8 @@ export type Coords = {
 
 export type Direction = "N" | "S" | "W" | "E";
 
-// *entities* can be "empty" | "enemy" | "cross/treasure"
-export type Entity = "n" | "E" | "X";
+// *entities* can be "empty" | "enemy" | "boat" | "cross/treasure"
+export type Entity = "n" | "E" | "B" | "X";
 
 export type EntityLine = [
   Entity,

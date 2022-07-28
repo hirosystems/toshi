@@ -13,17 +13,15 @@ const initWasm = init();
 const { workspaceFolders, fs } = workspace;
 const { uri: workspaceUri } = workspaceFolders![0];
 
-let currentLesson = 1;
-const lastLesson = 3;
-
 export async function activate(context: vscode.ExtensionContext) {
   console.log('"toshi-extension" is now active');
   vscode.commands.executeCommand("toshi-extension.gameView.focus");
   vscode.commands.executeCommand("workbench.action.positionPanelRight");
-  // vscode.commands.executeCommand("workbench.action.maximizeEditor");
+  vscode.commands.executeCommand("workbench.action.maximizeEditor");
 
-  const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, `lesson1.clar`);
-  vscode.workspace.openTextDocument(gameFile);
+  const lesson: vscode.Uri = Uri.joinPath(workspaceUri, `lesson1.clar`);
+  const document = await vscode.workspace.openTextDocument(lesson);
+  window.showTextDocument(document, 1, false);
 
   const gameViewProvider = new GameViewProvider(context.extensionUri);
   context.subscriptions.push(
@@ -38,41 +36,6 @@ export async function activate(context: vscode.ExtensionContext) {
     () => run(gameViewProvider),
   );
   context.subscriptions.push(runCode);
-
-  const nextLesson = vscode.commands.registerCommand(
-    "toshi-extension.nextLesson",
-    () => {
-      if (currentLesson === lastLesson) {
-        window.showErrorMessage("No more lessons.");
-        return;
-      }
-
-      currentLesson += 1;
-      const current = `lesson${currentLesson}.clar`;
-
-      const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, current);
-      window.showInformationMessage(`opening: ${gameFile}`);
-      vscode.workspace.openTextDocument(gameFile);
-    },
-  );
-  context.subscriptions.push(nextLesson);
-
-  const prevLesson = vscode.commands.registerCommand(
-    "toshi-extension.prevLesson",
-    () => {
-      if (currentLesson === 1) {
-        window.showErrorMessage("No more lessons.");
-        return;
-      }
-
-      currentLesson -= 1;
-      const current = `lesson${currentLesson}.clar`;
-
-      const gameFile: vscode.Uri = Uri.joinPath(workspaceUri, current);
-      vscode.workspace.openTextDocument(gameFile);
-    },
-  );
-  context.subscriptions.push(prevLesson);
 
   const startCommand = vscode.commands.registerCommand(
     "toshi-extension.launchToshi",

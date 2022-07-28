@@ -25,6 +25,9 @@ html {
   display: flex;
   justify-content: space-around;
 }
+#game.hidden {
+  display: none;
+}
 
 #grid {
   position: relative;
@@ -50,6 +53,9 @@ html {
 }
 #grid .tile.G {
   background-color: green;
+}
+#grid .tile.W {
+  background-color: saddlebrown;
 }
 
 #grid .tile > .info {
@@ -121,6 +127,7 @@ header {
 footer {
   height: 100%;
   max-height: 100%;
+  overflow: auto;
 }
 footer h3 {
   height: 20px;
@@ -129,4 +136,13 @@ footer #console {
   height: calc(100% - 20px);
   background-color: bisque;
   padding: 20px;
+  overflow: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }

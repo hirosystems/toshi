@@ -8,14 +8,15 @@ import { delay, toCamelCase } from "./lib/helpers";
 import {
   appendCaptainLog,
   deleteCaptainLogs,
+  disableNextButton,
   enableNextButton,
 } from "./lib/dom";
 
 // @ts-ignore
 const vscode = acquireVsCodeApi();
 
-type Status = `mission${number}`;
-const status: Status = "mission1";
+let currentLesson = 1;
+const lastLesson = 3;
 let isGameInProgress = false;
 
 async function afterInit(toshi: ReturnType<typeof createToshi>) {
@@ -35,7 +36,7 @@ function initLevel(lesson: Lesson) {
 function main() {
   const $runButton = document.getElementById("run")!;
 
-  let toshi = initLevel(missions.mission1);
+  let toshi: ReturnType<typeof initLevel>;
 
   function gameIsRunning() {
     isGameInProgress = true;
@@ -79,7 +80,6 @@ function main() {
       if (action.target === "game" && action.type === "action") {
         const [func, ...args] = action.args;
         const method = toCamelCase(func);
-        console.log("method", method);
         let finished: boolean | undefined;
         if (Object.keys(toshi).includes(method)) {
           try {
@@ -92,10 +92,9 @@ function main() {
             }
             break;
           }
-          // toshi.collectCoin should be the last function called
+          // toshi.collectCoin() should be the last function called
           // it's the only one that return true
           if (finished === true) {
-            console.log("done");
             win();
           }
         }
@@ -112,10 +111,26 @@ function main() {
   });
 
   document.querySelector("#next")!.addEventListener("click", function () {
-    console.log("ohoy");
+    disableNextButton();
+    if (currentLesson === lastLesson) {
+      // TODO: handle end state
+      return;
+    }
+    currentLesson += 1;
     deleteCaptainLogs();
     deleteGrid();
-    toshi = initLevel(missions.mission2);
+    // @ts-ignore
+    toshi = initLevel(missions[`mission${currentLesson}`]);
+    vscode.postMessage({
+      command: "openFile",
+      data: { lessonNumber: currentLesson },
+    });
+  });
+
+  document.querySelector("#start")!.addEventListener("click", function () {
+    document.querySelector("#game")?.classList.remove("hidden");
+    document.querySelector("#welcome-screen")?.classList.add("hidden");
+    toshi = initLevel(missions.mission1);
   });
 }
 

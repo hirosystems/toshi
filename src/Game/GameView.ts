@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { window, Uri, workspace } from "vscode";
 import { Instructions } from "../../common/types";
 
 import { Head } from "./html";
@@ -8,6 +9,9 @@ type ViewEvent = {
   command: string;
   data: Record<string, any>;
 };
+
+const { workspaceFolders } = workspace;
+const { uri: workspaceUri } = workspaceFolders![0];
 
 function isValidEvent(e: unknown): e is ViewEvent {
   if (!e || typeof e !== "object") {
@@ -35,8 +39,18 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionUri],
     };
 
-    this._view.webview.onDidReceiveMessage((e: unknown) => {
+    this._view.webview.onDidReceiveMessage(async (e: unknown) => {
       if (!isValidEvent(e)) return;
+
+      if (e.command === "openFile") {
+        const lessonFile: Uri = Uri.joinPath(
+          workspaceUri,
+          `lesson${e.data.lessonNumber}.clar`,
+        );
+        vscode.commands.executeCommand("workbench.action.closeAllEditors");
+        const nextDocument = await workspace.openTextDocument(lessonFile);
+        await window.showTextDocument(nextDocument, 1, false);
+      }
 
       if (e.command === "runCode") {
         vscode.commands.executeCommand("toshi-extension.runCode");
@@ -63,10 +77,14 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
       ${Head(view.webview, syleSrcs, nonce)}
 
       <body>
-        <div id="game">
+        <div id="welcome-screen">
+          <h1>ClearWaters</h1>
+          <h3>A Clarity Smart Contract Game</h3>
+          <button id="start">Press Start</button>
+        </div>
+        <div id="game" class="hidden">
           <header>
             <div id="controls">
-              <button id="previous" disabled>< Prev</button>
               <button id="run">Run</button>
               <button id="next" disabled>Next ></button>
             </div>

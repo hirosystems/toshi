@@ -1,2 +1,5 @@
-;; This is Lesson 1
-(+ 1 2)
+;; This is mission 1
+(move-forward)
+(move-forward)
+
+(collect-coin)

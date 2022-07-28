@@ -1,7 +1,7 @@
 {
-  "name": "toshi-extension",
-  "displayName": "toshi-extension",
-  "description": "Toshi game",
+  "name": "clearwaters",
+  "displayName": "ClearWaters",
+  "description": "A Clarity learning game",
   "version": "0.0.1",
   "publisher": "hugoclrd",
   "private": true,
@@ -22,30 +22,20 @@
     "commands": [
       {
         "command": "toshi-extension.launchToshi",
-        "title": "Launch Toshi",
-        "category": "Toshi"
+        "title": "Launch ClearWaters",
+        "category": "ClearWaters"
       },
       {
         "command": "toshi-extension.runCode",
         "title": "Run Code",
-        "category": "Toshi"
-      },
-      {
-        "command": "toshi-extension.nextLesson",
-        "title": "Next Lesson",
-        "category": "Toshi"
-      },
-      {
-        "command": "toshi-extension.prevLesson",
-        "title": "Prev Lesson",
-        "category": "Toshi"
+        "category": "ClearWaters"
       }
     ],
     "viewsContainers": {
       "panel": [
         {
           "id": "toshiPanel",
-          "title": "Toshi",
+          "title": "ClearWaters",
           "icon": "assets/images/logo.svg"
         }
       ]
@@ -55,7 +45,7 @@
         {
           "type": "webview",
           "id": "toshi-extension.gameView",
-          "name": "Toshi"
+          "name": "ClearWaters"
         }
       ]
     }

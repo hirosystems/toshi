@@ -26,3 +26,8 @@ export function enableNextButton() {
   const $nextButton = document.querySelector("#next")!;
   $nextButton.removeAttribute("disabled");
 }
+
+export function disableNextButton() {
+  const $nextButton = document.querySelector("#next")!;
+  $nextButton.setAttribute("disabled", "true");
+}
