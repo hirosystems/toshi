@@ -44,6 +44,12 @@ function createEntity(type: Entity) {
   return $entityContainer;
 }
 
+function runCode() {
+  console.log("RUN");
+  // TODO: Can we do this here?
+  // vscode.commands.executeCommand("toshi-extension.runCode");
+}
+
 function main() {
   const $container = document.querySelector("#grid")!;
   const { grid, entities } = lesson1;
@@ -94,6 +100,8 @@ function main() {
       await delay(1000);
     }
   });
+
+  document.getElementById("run")?.addEventListener("click", runCode);
 }
 
 document.addEventListener("DOMContentLoaded", main);
