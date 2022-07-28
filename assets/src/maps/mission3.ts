@@ -29,4 +29,8 @@ export const mission3: Lesson = {
     coords: { x: 1, y: 5 },
     direction: "E",
   },
+  boat: {
+    coords: { x: 5, y: 1 },
+    direction: "E",
+  },
 };

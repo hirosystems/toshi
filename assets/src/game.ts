@@ -47,6 +47,9 @@ function main() {
   function gameIsDone() {
     isGameInProgress = false;
     $runButton.removeAttribute("disabled");
+    if (toshi.noSuccess) {
+      enableNextButton();
+    }
   }
 
   function win() {
@@ -127,10 +130,18 @@ function main() {
     });
   });
 
+  // start is pretty much the same as next
   document.querySelector("#start")!.addEventListener("click", function () {
+    currentLesson += 0;
+    deleteCaptainLogs();
+    deleteGrid();
     document.querySelector("#game")?.classList.remove("hidden");
     document.querySelector("#welcome-screen")?.classList.add("hidden");
     toshi = initLevel(missions.mission1);
+    vscode.postMessage({
+      command: "openFile",
+      data: { lessonNumber: currentLesson },
+    });
   });
 }
 

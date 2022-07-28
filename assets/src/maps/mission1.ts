@@ -2,12 +2,12 @@ import { Lesson } from "../types";
 
 export const mission1: Lesson = {
   grid: [
-    ["S", "n", "n", "n", "n", "n", "n", "n", "n", "G"],
+    ["S", "n", "n", "n", "n", "n", "n", "n", "n", "W"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "S", "S", "S", "S", "n", "n", "n"],
-    ["n", "S", "S", "S", "G", "G", "S", "n", "n", "n"],
-    ["n", "S", "G", "G", "G", "G", "S", "n", "n", "n"],
-    ["n", "S", "G", "G", "G", "G", "S", "n", "n", "n"],
+    ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
+    ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
+    ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
     ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
@@ -17,7 +17,7 @@ export const mission1: Lesson = {
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
-    ["n", "n", "n", "n", "n", "X", "n", "n", "n", "n"],
+    ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
@@ -29,4 +29,5 @@ export const mission1: Lesson = {
     coords: { x: 2, y: 3 },
     direction: "E",
   },
+  noSuccess: true,
 };

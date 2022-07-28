@@ -117,5 +117,6 @@ export function createToshi(lesson: Readonly<Lesson>) {
     turnRight,
     collectCoin,
     moveForward,
+    noSuccess: lesson.noSuccess,
   };
 }

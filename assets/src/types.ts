@@ -1,6 +1,6 @@
 // type of a 10x10 *grid*
-// *tiles* can be "none" | "sand" | "grass" | "wood"
-export type Tile = "n" | "S" | "G" | "W";
+// *tiles* can be "none" | "sand" | "wood"
+export type Tile = "n" | "S" | "W";
 
 // a *line* contains 8 *tiles*
 export type Line = [Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile];
@@ -44,7 +44,7 @@ export type EntityGrid = [
   EntityLine,
 ];
 
-export type Player = {
+export type PlayerEntity = {
   coords: Coords;
   direction: Direction;
 };
@@ -53,5 +53,7 @@ export type Player = {
 export type Lesson = {
   grid: Grid;
   entities: EntityGrid;
-  player: Player;
+  player: PlayerEntity;
+  boat?: PlayerEntity;
+  noSuccess?: boolean;
 };

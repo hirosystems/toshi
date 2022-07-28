@@ -1,27 +1,20 @@
 import * as vscode from "vscode";
-import { window, workspace, Uri } from "vscode";
+import { window, workspace } from "vscode";
 
 import { GameViewProvider } from "./Game/GameView";
 import type { Instructions } from "../common/types";
-// @ts-ignore
-// import lesson1 from "./clarity/lesson1.clar";
 
 import init, { interpret } from "../../clarinet/components/clarity-repl/pkg";
 
 const initWasm = init();
 
-const { workspaceFolders, fs } = workspace;
-const { uri: workspaceUri } = workspaceFolders![0];
+const { fs } = workspace;
 
 export async function activate(context: vscode.ExtensionContext) {
   console.log('"toshi-extension" is now active');
   vscode.commands.executeCommand("toshi-extension.gameView.focus");
   vscode.commands.executeCommand("workbench.action.positionPanelRight");
   vscode.commands.executeCommand("workbench.action.maximizeEditor");
-
-  const lesson: vscode.Uri = Uri.joinPath(workspaceUri, `lesson1.clar`);
-  const document = await vscode.workspace.openTextDocument(lesson);
-  window.showTextDocument(document, 1, false);
 
   const gameViewProvider = new GameViewProvider(context.extensionUri);
   context.subscriptions.push(
