@@ -1,3 +1,7 @@
+(define-private (ahoy)
+    "Ahoy!"
+)
+
 (define-private (move-forward)
     (begin
         (print "@ACTION@: move-forward")
@@ -19,7 +23,7 @@
     )
 )
 
-(define-private (collect-coin)
+(define-private (collect)
     (begin
         (print "@ACTION@: collect-coin")
         true
