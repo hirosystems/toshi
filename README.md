@@ -14,4 +14,4 @@ $ npm run dev
 
 ### Start the extension
 
-Open the command palette (cmd + shift + p) and run "Launch Toshi"
+Open the command palette (cmd + shift + p) and run "Launch ClearWaters"

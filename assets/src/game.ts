@@ -4,7 +4,7 @@ import type { Instructions } from "../../common/types";
 import { buildGrid, deleteGrid } from "./lib/grid";
 import { Lesson } from "./types";
 import { createToshi } from "./lib/toshi";
-import { delay, toCamelCase } from "./lib/helpers";
+import { delay, SPEED, toCamelCase } from "./lib/helpers";
 import {
   appendCaptainLog,
   deleteCaptainLogs,
@@ -20,7 +20,7 @@ const lastLesson = 3;
 let isGameInProgress = false;
 
 async function afterInit(toshi: ReturnType<typeof createToshi>) {
-  await delay(500);
+  await delay(300);
   toshi.reveal();
 }
 
@@ -28,6 +28,9 @@ function initLevel(lesson: Lesson) {
   const $container = buildGrid(lesson);
   const toshi = createToshi(Object.freeze(lesson));
   $container.appendChild(toshi.$toshi);
+  if (toshi.$ship) {
+    $container.appendChild(toshi.$ship);
+  }
 
   afterInit(toshi);
   return toshi;
@@ -62,7 +65,7 @@ function main() {
   }
 
   window.addEventListener("message", async (event) => {
-    await delay(200); // small delay for the game to reset
+    await delay(100); // small delay for the game to reset
     const instructions = event.data as Instructions;
 
     // Handle console events
@@ -131,18 +134,21 @@ function main() {
   });
 
   // start is pretty much the same as next
-  document.querySelector("#start")!.addEventListener("click", function () {
-    currentLesson += 0;
+  const $start = document.querySelector("#start")!;
+  $start.addEventListener("click", function () {
     deleteCaptainLogs();
     deleteGrid();
     document.querySelector("#game")?.classList.remove("hidden");
     document.querySelector("#welcome-screen")?.classList.add("hidden");
-    toshi = initLevel(missions.mission1);
+    // @ts-ignore
+    toshi = initLevel(missions[`mission${currentLesson}`]);
+
     vscode.postMessage({
       command: "openFile",
       data: { lessonNumber: currentLesson },
     });
   });
+  if (SPEED > 1) $start.dispatchEvent(new Event("click"));
 }
 
 document.addEventListener("DOMContentLoaded", main);

@@ -15,7 +15,7 @@ export type Coords = {
 
 export type Direction = "N" | "S" | "W" | "E";
 
-// *entities* can be "empty" | "enemy" | "boat" | "cross/treasure"
+// *entities* can be "empty" | "enemy" | "ship" | "cross/treasure"
 export type Entity = "n" | "E" | "B" | "X";
 
 export type EntityLine = [
@@ -54,6 +54,6 @@ export type Lesson = {
   grid: Grid;
   entities: EntityGrid;
   player: PlayerEntity;
-  boat?: PlayerEntity;
+  ship?: PlayerEntity;
   noSuccess?: boolean;
 };

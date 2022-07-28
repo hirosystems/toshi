@@ -6,8 +6,8 @@ export const mission3: Lesson = {
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "n", "S", "n", "n", "W", "n", "n", "n", "n"],
     ["n", "n", "S", "S", "n", "W", "n", "n", "n", "n"],
-    ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
-    ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
+    ["n", "S", "S", "S", "S", "W", "S", "n", "n", "n"],
+    ["n", "S", "S", "S", "S", "W", "S", "n", "n", "n"],
     ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
     ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
     ["n", "S", "S", "S", "S", "n", "n", "n", "n", "n"],
@@ -29,7 +29,7 @@ export const mission3: Lesson = {
     coords: { x: 1, y: 5 },
     direction: "E",
   },
-  boat: {
+  ship: {
     coords: { x: 5, y: 1 },
     direction: "E",
   },

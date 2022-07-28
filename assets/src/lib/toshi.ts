@@ -25,6 +25,16 @@ export function createToshi(lesson: Readonly<Lesson>) {
   const $img = createDiv("toshi-img");
   $toshi.append($img);
 
+  let $ship: undefined | HTMLDivElement;
+  if (lesson.ship) {
+    $ship = createDiv("ship");
+    const $shipImg = createDiv("ship-img");
+    $ship.append($shipImg);
+    const { x, y } = lesson.ship.coords;
+    $ship.style.left = `${x * GRID_SIZE}%`;
+    $ship.style.top = `${y * GRID_SIZE}%`;
+  }
+
   let state = produce(player, (nextState) => nextState);
 
   function _setPosition() {
@@ -111,6 +121,7 @@ export function createToshi(lesson: Readonly<Lesson>) {
 
   return {
     $toshi,
+    $ship,
     reset,
     reveal,
     turnLeft,

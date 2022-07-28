@@ -10,7 +10,18 @@ function createLine() {
 function createTile(type: Tile, coord: Coords) {
   const $info = createDiv("info", `${coord.x}x${coord.y}`);
 
-  const $tile = createDiv(["tile", type]);
+  const variation = Math.floor(Math.random() * 2);
+  const rotate =
+    type === "S"
+      ? Math.floor(Math.random() * 4)
+      : Math.floor(Math.random() * 2);
+
+  const $tile = createDiv([
+    "tile",
+    type,
+    variation === 1 ? "one" : "two",
+    `rotate${rotate}`,
+  ]);
   $tile.appendChild($info);
 
   return $tile;
@@ -32,6 +43,7 @@ export function buildGrid(lesson: Lesson) {
     const $line = createLine();
     line.forEach((tile, y) => {
       const $tile = createTile(tile, { x, y });
+
       const entity = entities[x][y];
       if (entity !== "n") {
         const $entity = createEntity(entity);
