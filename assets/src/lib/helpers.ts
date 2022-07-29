@@ -3,7 +3,7 @@ export const toCamelCase = (s: string) =>
 
 // a speed > 1 will make animations a bit quicker
 // and skip the welcome screen with the "press start" btn
-export const SPEED = 1.2;
+export const SPEED = 1;
 
 export const delay = (ms: number) =>
   new Promise((resolve) => {

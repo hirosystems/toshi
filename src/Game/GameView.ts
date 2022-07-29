@@ -70,6 +70,7 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
     const syleSrcs = [
       vscode.Uri.joinPath(root, "./assets/styles/animations.css"),
       vscode.Uri.joinPath(root, "./assets/styles/game.css"),
+      vscode.Uri.joinPath(root, "./assets/styles/logs.css"),
     ];
 
     return /* html */ `<!DOCTYPE html>
