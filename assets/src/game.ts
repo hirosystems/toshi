@@ -168,7 +168,7 @@ function main() {
   });
 
   // start is pretty much the same as next
-  const $start = document.querySelector("#start")!;
+  const $start = document.querySelector("#welcome-screen")!;
   $start.addEventListener("click", function () {
     deleteCaptainLogs();
     deleteGrid();

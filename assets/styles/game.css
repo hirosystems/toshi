@@ -253,3 +253,13 @@ button {
 .hidden {
   display: none;
 }
+
+#welcome-screen {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../images/ui/splash-screen.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}

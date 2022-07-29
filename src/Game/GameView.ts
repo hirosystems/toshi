@@ -78,11 +78,7 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
       ${Head(view.webview, syleSrcs, nonce)}
 
       <body>
-        <div id="welcome-screen">
-          <h1>ClearWaters</h1>
-          <h3>A Clarity Smart Contract Game</h3>
-          <button id="start">Press Start</button>
-        </div>
+        <div id="welcome-screen"></div>
         <div id="game" class="hidden">
           <header>
             <div id="controls">
