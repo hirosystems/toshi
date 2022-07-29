@@ -7,12 +7,16 @@ footer h3 {
   height: 20px;
 }
 footer #console {
-  height: 100%;
-  padding: 20px 60px;
+  height: 300px;
+  padding: 30px 60px;
   overflow: hidden;
   background-image: url("../images/ui/log-sheet-short.svg");
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+#console p {
+  margin: 5px;
 }
 
 #log-title {
