@@ -95,7 +95,7 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
           <main id="grid"></main>
           <div id="entities-grid"></div>
           <footer>
-            <h3>Captain's log</h3>
+            <div id="log-title"></div>
             <div id="console"></div>
           </footer>
         </div>

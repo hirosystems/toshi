@@ -8,11 +8,12 @@ export function createDiv(classes: string[] | string, text?: string) {
   return $el;
 }
 
-export function appendCaptainLog(message: string) {
+export function appendCaptainLog(messageType: string, message: string) {
   const $console = <HTMLDivElement>document.querySelector("#console")!;
 
   const $text = document.createElement("p");
   $text.textContent = message;
+  $text.className = `log-${messageType}`;
 
   $console.prepend($text);
 }

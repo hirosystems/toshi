@@ -67,14 +67,33 @@ function main() {
   }
 
   function win() {
-    appendCaptainLog("Success");
+    appendCaptainLog("success", "Success");
     if (currentLesson !== lastLesson) {
       enableNextButton();
     }
   }
 
+  function reasonToMessage(reason: string) {
+    switch (reason) {
+      case "moving-out-of-grid":
+        return "Toshi tried to escape his square";
+      case "toshi-can-not-swim":
+        return "Toshi can't swim";
+      case "ship-can-not-go-on-land":
+        return "The ship's run aground";
+      case "path-is-blocked":
+        return "Toshi is blocked";
+      case "must-be-on-ship":
+        return "Toshi can't get off a ship he's not on";
+      case "nothing-to-collect":
+        return "Nothing to collect here";
+      default:
+        return reason;
+    }
+  }
+
   function fail(reason: string) {
-    appendCaptainLog(`Mission failed (reason: ${reason})`);
+    appendCaptainLog("error", `Mission failed: ${reasonToMessage(reason)}`);
   }
 
   window.addEventListener("message", async (event) => {
@@ -83,14 +102,7 @@ function main() {
 
     for (const instruction of instructions) {
       if (instruction.target === "console") {
-        if (instruction.type === "error") {
-          appendCaptainLog(instruction.text);
-        } else if (
-          instruction.type === "print" ||
-          instruction.type === "result"
-        ) {
-          appendCaptainLog(`${instruction.type}: ${instruction.text}`);
-        }
+        appendCaptainLog(instruction.type, instruction.text);
       } else if (instruction.type === "action") {
         const [func, ...args] = instruction.args;
         const method = toCamelCase(func);
