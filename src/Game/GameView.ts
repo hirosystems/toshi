@@ -85,9 +85,9 @@ export class GameViewProvider implements vscode.WebviewViewProvider {
         <div id="game" class="hidden">
           <header>
             <div id="controls">
-              <button id="prev" disabled>< Prev</button>
-              <button id="run">Run</button>
-              <button id="next" disabled>Next ></button>
+              <button id="prev" disabled></button>
+              <button id="run"></button>
+              <button id="next" disabled></button>
             </div>
 
           </header>

@@ -204,6 +204,54 @@ footer #console {
 button {
   cursor: pointer;
 }
+#controls button {
+  height: 40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  outline: none;
+  border: none;
+}
+#controls button:enabled:hover {
+  height: 36px;
+}
+#controls button:disabled {
+  cursor: auto;
+}
+#run {
+  width: 72px;
+  background-image: url("../images/ui/run-active.svg");
+}
+#prev {
+  width: 98px;
+  background-image: url("../images/ui/prev-active.svg");
+}
+#next {
+  width: 98px;
+  background-image: url("../images/ui/next-active.svg");
+}
+#run:enabled:hover,
+#run:active:hover {
+  width: 72px;
+  background-image: url("../images/ui/run-hover-focus.svg");
+}
+#prev:enabled:hover,
+#prev:active:hover {
+  width: 98px;
+  background-image: url("../images/ui/prev-hover-focus.svg");
+}
+#next:enabled:hover,
+#next:active:hover {
+  width: 98px;
+  background-image: url("../images/ui/next-hover-focus.svg");
+}
+#prev:disabled {
+  width: 98px;
+  background-image: url("../images/ui/prev-inactive.svg");
+}
+#next:disabled {
+  width: 98px;
+  background-image: url("../images/ui/next-inactive.svg");
+}
 
 .hidden {
   display: none;
