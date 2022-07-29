@@ -75,18 +75,19 @@
 
 (define-constant secret-treasure-map
     (list 
+        "East"
         "North"
-        "East"
-        "East"
-        "East"
-        "South"
         "East"
         "East"
         "North"
         "North"
         "North"
+        "East"
         "North"
-        "West"
+        "East"
+        "North"
+        "East"
+        "North"
         "West"
     )
 )
