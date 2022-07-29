@@ -15,8 +15,8 @@ export type Coords = {
 
 export type Direction = "N" | "S" | "W" | "E";
 
-// *entities* can be "empty" | "enemy" | "cross/treasure"
-export type Entity = "n" | "E" | "X";
+// *entities* can be "empty" | "enemy" | "bottle" | "treasure"
+export type Entity = "n" | "E" | "X" | "T";
 
 export type EntityLine = [
   Entity,

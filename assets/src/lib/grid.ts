@@ -30,6 +30,7 @@ function createTile(type: Tile, coord: Coords) {
 
 function createEntity(type: Entity) {
   const $entity = createDiv(["entity", type]);
+  if (type === "T") $entity.classList.add("hidden");
 
   const $entityContainer = createDiv("entity-container");
   $entityContainer.appendChild($entity);

@@ -95,6 +95,12 @@ export function createToshi(lesson: Readonly<Lesson>) {
     if ($ship) $ship.classList.remove("hidden");
     state = produce(player, (nextState) => nextState);
     shipState = produce(ship, (next) => next);
+    document.querySelectorAll(".entity.X.hidden").forEach(($el) => {
+      $el.classList.remove("hidden");
+    });
+    document.querySelectorAll(".entity.T.hidden").forEach(($el) => {
+      $el.classList.add("hidden");
+    });
 
     _setDirection();
     _setPosition();
@@ -211,9 +217,20 @@ export function createToshi(lesson: Readonly<Lesson>) {
 
   async function collectCoin() {
     const { x, y } = _getAheadCoords();
-    const entityAbove = lesson.entities[y][x];
-    if (entityAbove !== "X") {
-      throw new Error("no-coin-ahead");
+    const entityAhead = lesson.entities[y][x];
+    if (!["X", "T"].includes(entityAhead)) {
+      throw new Error("nothing-to-collect");
+    }
+
+    // if bottle, toshi "takes" it, we it it
+    const $bottle = <HTMLDivElement>document.querySelector(".entity.X");
+    if ($bottle) {
+      $bottle.classList.add("hidden");
+    }
+    // if treasure, toshi "digs" it, we show it
+    const $treasure = <HTMLDivElement>document.querySelector(".entity.T");
+    if ($treasure) {
+      $treasure.classList.remove("hidden");
     }
     return true;
   }

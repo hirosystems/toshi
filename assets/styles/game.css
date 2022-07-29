@@ -64,9 +64,6 @@ html {
 #grid .tile.W.two {
   background-image: url("../images/tiles/pier-tile2.svg");
 }
-#grid .tile.rotate0 {
-  transform: rotate(0deg);
-}
 #grid .tile.rotate1 {
   transform: rotate(180deg);
 }
@@ -75,6 +72,15 @@ html {
 }
 #grid .tile.rotate3 {
   transform: rotate(270deg);
+}
+#grid .tile.rotate1 .entity-container {
+  transform: rotate(-180deg);
+}
+#grid .tile.rotate2 .entity-container {
+  transform: rotate(-90deg);
+}
+#grid .tile.rotate3 .entity-container {
+  transform: rotate(-270deg);
 }
 
 #grid .tile > .info {
@@ -88,7 +94,6 @@ html {
   bottom: 0;
   right: 0;
   left: 0;
-  padding: 20%;
 }
 #grid .entity {
   width: 100%;
@@ -97,6 +102,10 @@ html {
   background-size: cover;
 }
 #grid .entity.X {
+  background-image: url("../../assets/images/entities/bottle.svg");
+  animation: scale-up 3s linear infinite both;
+}
+#grid .entity.T {
   background-image: url("../../assets/images/entities/bottle.svg");
   animation: scale-up 3s linear infinite both;
 }
