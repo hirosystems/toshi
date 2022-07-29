@@ -2,7 +2,7 @@
   "name": "clearwaters",
   "displayName": "ClearWaters",
   "description": "A learning game",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "hugoclrd",
   "private": true,
   "license": "GPL-3.0-only",
@@ -14,7 +14,6 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished",
     "onCommand:toshi-extension.launchToshi"
   ],
   "browser": "./dist/extension.js",

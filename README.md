@@ -1,5 +1,7 @@
 # Toshi
 
+Test the project here: [ClearWaters](https://github.com/hirosystems/clear-waters/)
+
 ## Getting started
 
 clean install dependencies:
