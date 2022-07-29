@@ -16,7 +16,7 @@ import {
 const vscode = acquireVsCodeApi();
 
 let currentLesson = 1;
-const lastLesson = 3;
+const lastLesson = 4;
 let isGameInProgress = false;
 
 async function afterInit(toshi: ReturnType<typeof createToshi>) {
@@ -79,7 +79,6 @@ function main() {
           appendCaptainLog(`${instruction.type}: ${instruction.text}`);
         }
       } else if (instruction.type === "action") {
-        console.log(instruction.args);
         const [func, ...args] = instruction.args;
         const method = toCamelCase(func);
         let finished: boolean | undefined;
