@@ -228,17 +228,17 @@ button {
   background-image: url("../images/ui/next-active.svg");
 }
 #run:enabled:hover,
-#run:active:hover {
+#run:enabled:active:hover {
   width: 72px;
   background-image: url("../images/ui/run-hover-focus.svg");
 }
 #prev:enabled:hover,
-#prev:active:hover {
+#prev:enabled:active:hover {
   width: 98px;
   background-image: url("../images/ui/prev-hover-focus.svg");
 }
 #next:enabled:hover,
-#next:active:hover {
+#next:enabled:active:hover {
   width: 98px;
   background-image: url("../images/ui/next-hover-focus.svg");
 }
@@ -249,6 +249,9 @@ button {
 #next:disabled {
   width: 98px;
   background-image: url("../images/ui/next-inactive.svg");
+}
+#run:disabled {
+  opacity: 0.5;
 }
 
 .hidden {
