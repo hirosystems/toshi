@@ -52,18 +52,19 @@ export function buildGrid(lesson: Lesson) {
     $container.appendChild($line);
   });
 
+  buildEntitiesGrid(lesson);
+
   return $container;
 }
 
-export function buildEntitiesGrid(lesson: Lesson) {
+function buildEntitiesGrid(lesson: Lesson) {
   const $container = document.querySelector("#entities-grid")!;
   const { entities } = lesson;
   entities.forEach((line, x) => {
     const $line = createLine();
-    line.forEach((tile, y) => {
+    line.forEach((entity, y) => {
       const $tile = createDiv(["entity-tile"]);
 
-      const entity = entities[x][y];
       if (entity !== "n") {
         const $entity = createEntity(entity);
         $tile.appendChild($entity);
@@ -77,6 +78,8 @@ export function buildEntitiesGrid(lesson: Lesson) {
 }
 
 export function deleteGrid() {
-  const $container = document.querySelector("#grid")!;
-  $container.replaceChildren();
+  const $grid = document.querySelector("#grid")!;
+  $grid.replaceChildren();
+  const $entitiesGrid = document.querySelector("#entities-grid")!;
+  $entitiesGrid.replaceChildren();
 }

@@ -29,18 +29,26 @@ html {
   display: none;
 }
 
-#grid {
-  position: relative;
+#grid,
+#entities-grid {
   display: flex;
   flex-direction: column;
+}
+#grid {
+  position: relative;
   background-color: #324193;
 }
+#entities-grid {
+  margin-top: -100%;
+}
 
-#grid .line {
+#grid .line,
+#entities-grid .line {
   display: flex;
 }
 
-#grid .tile {
+#grid .tile,
+#entities-grid .entity-tile {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
@@ -88,28 +96,28 @@ html {
   display: none;
 }
 
-#grid .entity-container {
+#entities-grid .entity-container {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
 }
-#grid .entity {
+#entities-grid .entity {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
   background-size: cover;
 }
-#grid .entity.X {
+#entities-grid .entity.X {
   background-image: url("../images/entities/bottle.svg");
   animation: scale-up 3s linear infinite both;
 }
-#grid .entity.T {
+#entities-grid .entity.T {
   background-image: url("../images/entities/treasure.svg");
   animation: scale-up 3s linear infinite both;
 }
-#grid .entity.P {
+#entities-grid .entity.P {
   background-image: url("../images/entities/palmtree.svg");
   transform: scale(1.7) translate(-14%, 1%);
   transform-origin: bottom;

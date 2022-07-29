@@ -45,7 +45,7 @@ export function createToshi(lesson: Readonly<Lesson>) {
 
   function _setShipPosition() {
     if (!shipState || !$ship) {
-      console.log("unexpect - no ship on the map");
+      console.warn("unexpected - no ship on the map");
       return;
     }
     const { x, y } = shipState.coords;
@@ -104,7 +104,7 @@ export function createToshi(lesson: Readonly<Lesson>) {
 
     _setDirection();
     _setPosition();
-    _setShipPosition();
+    if (lesson.ship) _setShipPosition();
     setTimeout(() => {
       $toshi.classList.remove("no-transition");
     }, 10);
@@ -154,6 +154,10 @@ export function createToshi(lesson: Readonly<Lesson>) {
     // toshi is on ship and tries to go on the land
     if (state.onShip && lesson.grid[y][x] !== "n") {
       throw new Error("ship-can-not-go-on-land");
+    }
+
+    if (lesson.entities[y][x] !== "n") {
+      throw new Error("path-is-blocked");
     }
 
     _setPosition();
