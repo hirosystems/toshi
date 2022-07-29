@@ -7,9 +7,7 @@ function createLine() {
   return createDiv("line");
 }
 
-function createTile(type: Tile, coord: Coords) {
-  const $info = createDiv("info", `${coord.x}x${coord.y}`);
-
+function createTile(type: Tile) {
   const variation = Math.floor(Math.random() * 2);
   const rotate =
     type === "S"
@@ -22,8 +20,6 @@ function createTile(type: Tile, coord: Coords) {
     variation === 1 ? "one" : "two",
     `rotate${rotate}`,
   ]);
-  $tile.appendChild($info);
-  $tile.setAttribute("id", `coord-${coord.x}-${coord.y}`);
 
   return $tile;
 }
@@ -44,7 +40,28 @@ export function buildGrid(lesson: Lesson) {
   grid.forEach((line, x) => {
     const $line = createLine();
     line.forEach((tile, y) => {
-      const $tile = createTile(tile, { x, y });
+      const $tile = createTile(tile);
+
+      const entity = entities[x][y];
+      if (entity !== "n") {
+        const $entity = createEntity(entity);
+        $tile.appendChild($entity);
+      }
+      $line.appendChild($tile);
+    });
+    $container.appendChild($line);
+  });
+
+  return $container;
+}
+
+export function buildEntitiesGrid(lesson: Lesson) {
+  const $container = document.querySelector("#entities-grid")!;
+  const { entities } = lesson;
+  entities.forEach((line, x) => {
+    const $line = createLine();
+    line.forEach((tile, y) => {
+      const $tile = createDiv(["entity-tile"]);
 
       const entity = entities[x][y];
       if (entity !== "n") {
