@@ -1,0 +1,6 @@
+(move-forward-n 4)
+(turn-left)
+(move-forward-n 2)
+(board "Captain Hooky")
+(move-forward-n 4)
+(move-forward)
