@@ -228,6 +228,8 @@ export function createToshi(lesson: Readonly<Lesson>) {
 
     // if bottle, toshi "takes" it, we it it
     const $bottle = <HTMLDivElement>document.querySelector(".entity.X");
+    console.log("-".repeat(20));
+    console.log("$bottle", $bottle);
     if ($bottle) {
       $bottle.classList.add("hidden");
     }

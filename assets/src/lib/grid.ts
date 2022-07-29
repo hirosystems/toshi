@@ -1,4 +1,4 @@
-import { Coords, Entity, Lesson, Tile } from "../types";
+import { Entity, Lesson, Tile } from "../types";
 import { createDiv } from "./dom";
 
 export const GRID_SIZE = 10;

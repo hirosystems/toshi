@@ -17,7 +17,7 @@ import {
 // @ts-ignore
 const vscode = acquireVsCodeApi();
 
-let currentLesson = 1;
+let currentLesson = 2;
 const lastLesson = 4;
 let isGameInProgress = false;
 if (currentLesson > 1) enablePrevButton();
