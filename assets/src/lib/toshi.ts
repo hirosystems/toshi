@@ -18,8 +18,16 @@ const rightTurns: Record<Direction, Direction> = {
   N: "E",
 };
 
+const delays = {
+  move: 400,
+  turn: 100,
+};
+
 export function createToshi(lesson: Readonly<Lesson>) {
   const player = Object.freeze(lesson.player);
+  const ship = Object.freeze(lesson.ship);
+  let state = produce(player, (next) => next);
+  let shipState = produce(ship, (next) => next);
 
   const $toshi = createDiv("toshi");
   const $img = createDiv("toshi-img");
@@ -35,7 +43,15 @@ export function createToshi(lesson: Readonly<Lesson>) {
     $ship.style.top = `${y * GRID_SIZE}%`;
   }
 
-  let state = produce(player, (nextState) => nextState);
+  function _setShipPosition() {
+    if (!shipState || !$ship) {
+      console.log("unexpect - no ship on the map");
+      return;
+    }
+    const { x, y } = shipState.coords;
+    $ship.style.left = `${x * GRID_SIZE}%`;
+    $ship.style.top = `${y * GRID_SIZE}%`;
+  }
 
   function _setPosition() {
     const { x, y } = state.coords;
@@ -48,7 +64,6 @@ export function createToshi(lesson: Readonly<Lesson>) {
     $toshi.classList.add(`dir-${state.direction}`);
   }
 
-  // get the coordinates of the tile in front of Toshi
   function _getAheadCoords(n = 1): Coords {
     const dir = state.direction;
     const { x, y } = state.coords;
@@ -59,14 +74,31 @@ export function createToshi(lesson: Readonly<Lesson>) {
     return { x: x + n, y };
   }
 
+  function _boardShip() {
+    if (!$ship) {
+      console.warn("no ship on the map");
+      return;
+    }
+    state = produce(state, (next) => {
+      next.onShip = true;
+    });
+    $toshi.classList.add("on-ship");
+    $ship.classList.add("hidden");
+  }
+
   _setDirection();
   _setPosition();
 
   function reset() {
     $toshi.classList.add("no-transition");
+    $toshi.classList.remove("on-ship");
+    if ($ship) $ship.classList.remove("hidden");
     state = produce(player, (nextState) => nextState);
+    shipState = produce(ship, (next) => next);
+
     _setDirection();
     _setPosition();
+    _setShipPosition();
     setTimeout(() => {
       $toshi.classList.remove("no-transition");
     }, 10);
@@ -86,7 +118,7 @@ export function createToshi(lesson: Readonly<Lesson>) {
       next.direction = getTurn("left");
     });
     _setDirection();
-    await delay(100);
+    await delay(delays.turn);
   }
 
   async function turnRight() {
@@ -94,20 +126,87 @@ export function createToshi(lesson: Readonly<Lesson>) {
       next.direction = getTurn("right");
     });
     _setDirection();
-    await delay(100);
+    await delay(delays.turn);
   }
 
-  async function moveForward(n = 1) {
+  async function moveForward() {
     state = produce(state, (next) => {
-      next.coords = _getAheadCoords(n);
+      next.coords = _getAheadCoords();
     });
 
     const { x, y } = state.coords;
+
     if (x >= GRID_SIZE || x < 0 || y >= GRID_SIZE || y < 0) {
       throw new Error("moving-out-of-grid");
     }
+
+    // toshi is not on ship and tries to go into the water
+    if (!state.onShip && lesson.grid[y][x] === "n") {
+      throw new Error("toshi-can-not-swim");
+    }
+
+    // toshi is on ship and tries to go on the land
+    if (state.onShip && lesson.grid[y][x] !== "n") {
+      throw new Error("ship-can-not-go-on-land");
+    }
+
     _setPosition();
-    await delay(400);
+    await delay(delays.move);
+  }
+
+  async function board() {
+    const { x, y } = _getAheadCoords();
+    const { ship } = lesson;
+    if (
+      !ship ||
+      !shipState ||
+      shipState.coords.x !== x ||
+      shipState.coords.y !== y
+    ) {
+      throw new Error("no-ship-ahead");
+    }
+
+    state = produce(state, (next) => {
+      next.coords = _getAheadCoords();
+    });
+    _setPosition();
+    await delay(delays.move);
+    _boardShip();
+  }
+
+  async function getOff() {
+    const { x, y } = _getAheadCoords();
+
+    if (!state.onShip) {
+      throw new Error("must-be-on-ship");
+    }
+
+    if (lesson.grid[y][x] === "n") {
+      throw new Error("toshi-can-not-swim");
+    }
+
+    shipState = produce(shipState, (next) => {
+      if (!next) return;
+      next.coords.x = state.coords.x;
+      next.coords.y = state.coords.y;
+    });
+    _setShipPosition();
+
+    state = produce(state, (next) => {
+      next.coords = _getAheadCoords();
+      next.onShip = false;
+    });
+    $toshi.classList.remove("on-ship");
+    $ship?.classList.remove("hidden");
+    _setPosition();
+
+    // *hack for mission 3*
+    // the win condition is to reach [9, 0]
+    // if done, `return true` will trigger "win()"
+    // TODO: improve  win condition
+    if (state.coords.x === 9 && state.coords.y === 0) {
+      return true;
+    }
   }
 
   async function collectCoin() {
@@ -124,6 +223,8 @@ export function createToshi(lesson: Readonly<Lesson>) {
     $ship,
     reset,
     reveal,
+    board,
+    getOff,
     turnLeft,
     turnRight,
     collectCoin,

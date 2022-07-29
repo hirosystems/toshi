@@ -9,15 +9,18 @@ import {
   appendCaptainLog,
   deleteCaptainLogs,
   disableNextButton,
+  disablePrevButton,
   enableNextButton,
+  enablePrevButton,
 } from "./lib/dom";
 
 // @ts-ignore
 const vscode = acquireVsCodeApi();
 
-let currentLesson = 1;
+let currentLesson = 2;
 const lastLesson = 4;
 let isGameInProgress = false;
+if (currentLesson > 1) enablePrevButton();
 
 async function afterInit(toshi: ReturnType<typeof createToshi>) {
   await delay(300);
@@ -41,23 +44,33 @@ function main() {
 
   let toshi: ReturnType<typeof initLevel>;
 
+  function initMap() {
+    deleteCaptainLogs();
+    deleteGrid();
+    // @ts-ignore
+    toshi = initLevel(missions[`mission${currentLesson}`]);
+  }
+
   function gameIsRunning() {
     isGameInProgress = true;
     $runButton.setAttribute("disabled", "true");
+    disableNextButton();
+    disablePrevButton();
     toshi.reset();
   }
 
   function gameIsDone() {
     isGameInProgress = false;
     $runButton.removeAttribute("disabled");
-    if (toshi.noSuccess) {
-      enableNextButton();
-    }
+    if (currentLesson > 1) enablePrevButton();
+    if (toshi.noSuccess) enableNextButton();
   }
 
   function win() {
     appendCaptainLog("Success");
-    enableNextButton();
+    if (currentLesson !== lastLesson) {
+      enableNextButton();
+    }
   }
 
   function fail(reason: string) {
@@ -83,7 +96,7 @@ function main() {
         const method = toCamelCase(func);
         let finished: boolean | undefined;
         if (method === "fail") {
-          fail(args.join(' '));
+          fail(args.join(" "));
           return;
         } else if (Object.keys(toshi).includes(method)) {
           try {
@@ -93,7 +106,6 @@ function main() {
           } catch (err) {
             if (err && err instanceof Error) {
               fail(err.message);
-              return;
             }
             break;
           }
@@ -115,17 +127,26 @@ function main() {
     gameIsRunning();
   });
 
+  document.querySelector("#prev")!.addEventListener("click", function () {
+    if (currentLesson === 1) return;
+    currentLesson -= 1;
+    if (currentLesson === 1) disablePrevButton();
+    initMap();
+    vscode.postMessage({
+      command: "openFile",
+      data: { lessonNumber: currentLesson },
+    });
+  });
+
   document.querySelector("#next")!.addEventListener("click", function () {
-    disableNextButton();
     if (currentLesson === lastLesson) {
       // TODO: handle end state
       return;
     }
+    disableNextButton();
+    enablePrevButton();
     currentLesson += 1;
-    deleteCaptainLogs();
-    deleteGrid();
-    // @ts-ignore
-    toshi = initLevel(missions[`mission${currentLesson}`]);
+    initMap();
     vscode.postMessage({
       command: "openFile",
       data: { lessonNumber: currentLesson },

@@ -9,8 +9,8 @@
     )
 )
 
-(define-constant count-lists 
-    (list 
+(define-constant count-lists
+    (list
         (list 1)
         (list 1 2)
         (list 1 2 3)
@@ -73,8 +73,14 @@
     )
 )
 
+(define-private (get-off)
+    (begin
+        (print "@ACTION@: get-off")
+        true
+    )
+)
 (define-constant secret-treasure-map
-    (list 
+    (list
         "East"
         "North"
         "East"

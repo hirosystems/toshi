@@ -33,6 +33,7 @@ html {
   position: relative;
   display: flex;
   flex-direction: column;
+  background-color: #324193;
 }
 
 #grid .line {
@@ -96,8 +97,8 @@ html {
   background-size: cover;
 }
 #grid .entity.X {
-  background-image: url("../../assets/images/stx.svg");
-  animation: rotate-scale-up 3s linear infinite both;
+  background-image: url("../../assets/images/entities/bottle.svg");
+  animation: scale-up 3s linear infinite both;
 }
 
 .toshi {
@@ -117,8 +118,8 @@ html {
 .toshi.no-transition {
   transition: none;
 }
+/* toshi on land */
 .toshi .toshi-img {
-  width: 100%;
   aspect-ratio: 1;
   background-image: url(../images/toshi/s.png);
   background-position: center;
@@ -135,6 +136,24 @@ html {
 }
 .toshi.dir-W .toshi-img {
   background-image: url(../images/toshi/w.png);
+}
+/* toshi on his ship */
+.toshi.on-ship .toshi-img {
+  background-image: url(../images/entities/ship.svg);
+  transform: scale(2.7) translateY(-21%) translateX(-10%);
+}
+.toshi.on-ship.dir-N .toshi-img {
+  background-image: url(../images/entities/ship.svg);
+}
+.toshi.on-ship.dir-S .toshi-img {
+  background-image: url(../images/entities/ship.svg);
+}
+.toshi.on-ship.dir-E .toshi-img {
+  background-image: url(../images/entities/ship.svg);
+}
+.toshi.on-ship.dir-W .toshi-img {
+  background-image: url(../images/entities/ship.svg);
+  transform: scale(-2.7, 2.8) translateY(-21%) translateX(-10%);
 }
 
 .ship {

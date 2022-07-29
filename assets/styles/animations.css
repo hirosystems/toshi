@@ -10,14 +10,14 @@
  * animation rotate-scale-up
  * ----------------------------------------
  */
-@keyframes rotate-scale-up {
+@keyframes scale-up {
   0% {
-    transform: scale(1) rotateZ(0);
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.2) rotateZ(180deg);
+    transform: scale(1.4);
   }
   100% {
-    transform: scale(1) rotateZ(360deg);
+    transform: scale(1);
   }
 }

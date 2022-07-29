@@ -23,6 +23,7 @@ function createTile(type: Tile, coord: Coords) {
     `rotate${rotate}`,
   ]);
   $tile.appendChild($info);
+  $tile.setAttribute("id", `coord-${coord.x}-${coord.y}`);
 
   return $tile;
 }

@@ -2,15 +2,15 @@ import { Lesson } from "../types";
 
 export const mission2: Lesson = {
   grid: [
-    ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
-    ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
-    ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
-    ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
-    ["n", "S", "n", "n", "n", "n", "n", "n", "n", "n"],
+    ["S", "S", "S", "n", "n", "n", "n", "n", "n", "n"],
+    ["S", "S", "n", "n", "n", "n", "n", "n", "n", "n"],
+    ["S", "S", "n", "n", "n", "n", "n", "n", "n", "n"],
+    ["S", "S", "n", "n", "n", "n", "n", "n", "n", "n"],
     ["n", "S", "S", "n", "n", "n", "n", "n", "n", "n"],
-    ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
-    ["n", "S", "S", "S", "S", "S", "S", "n", "n", "n"],
-    ["n", "S", "S", "S", "S", "n", "n", "n", "n", "n"],
+    ["n", "n", "S", "S", "n", "n", "n", "n", "n", "n"],
+    ["n", "n", "S", "S", "S", "S", "S", "S", "n", "n"],
+    ["n", "n", "S", "S", "S", "S", "S", "S", "n", "n"],
+    ["n", "n", "S", "S", "S", "S", "n", "n", "n", "n"],
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
   ],
   entities: [
@@ -26,7 +26,7 @@ export const mission2: Lesson = {
     ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],
   ],
   player: {
-    coords: { x: 1, y: 5 },
-    direction: "E",
+    coords: { x: 2, y: 4 },
+    direction: "S",
   },
 };

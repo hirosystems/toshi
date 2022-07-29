@@ -42,6 +42,17 @@
 ;;   (board solution)        Toshi tries to board the ship with the solution to
 ;;                            the riddle
 
+;;    (get-off)              Toshi tries to get off the ship
+
+(move-forward-n 4)
+(turn-left)
+(move-forward-n 2)
+(board "Captain Hooky")
+(move-forward-n 2)
+(turn-right)
+(move-forward-n 3)
+(get-off)
+
 ;; ** Mission **
 ;;   Use these new functions to get Toshi on the ship and then get the ship to
 ;;   the dock in the NE corner in as few lines of code as you can.

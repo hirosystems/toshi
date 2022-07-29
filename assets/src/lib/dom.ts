@@ -31,3 +31,13 @@ export function disableNextButton() {
   const $nextButton = document.querySelector("#next")!;
   $nextButton.setAttribute("disabled", "true");
 }
+
+export function enablePrevButton() {
+  const $prevButton = document.querySelector("#prev")!;
+  $prevButton.removeAttribute("disabled");
+}
+
+export function disablePrevButton() {
+  const $prevButton = document.querySelector("#prev")!;
+  $prevButton.setAttribute("disabled", "true");
+}
