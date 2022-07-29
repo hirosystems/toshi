@@ -91,8 +91,8 @@
         "East"
         "North"
         "East"
-        "North"
         "East"
+        "North"
         "North"
         "West"
     )
