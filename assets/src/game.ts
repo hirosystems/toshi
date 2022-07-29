@@ -54,6 +54,8 @@ function main() {
   function gameIsRunning() {
     isGameInProgress = true;
     $runButton.setAttribute("disabled", "true");
+    deleteCaptainLogs();
+
     disableNextButton();
     disablePrevButton();
     toshi.reset();

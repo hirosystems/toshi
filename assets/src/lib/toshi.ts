@@ -95,10 +95,10 @@ export function createToshi(lesson: Readonly<Lesson>) {
     if ($ship) $ship.classList.remove("hidden");
     state = produce(player, (nextState) => nextState);
     shipState = produce(ship, (next) => next);
-    document.querySelectorAll(".entity.X.hidden").forEach(($el) => {
+    document.querySelectorAll("#entities-grid .X").forEach(($el) => {
       $el.classList.remove("hidden");
     });
-    document.querySelectorAll(".entity.T.hidden").forEach(($el) => {
+    document.querySelectorAll("#entities-grid .T").forEach(($el) => {
       $el.classList.add("hidden");
     });
 
@@ -227,14 +227,14 @@ export function createToshi(lesson: Readonly<Lesson>) {
     }
 
     // if bottle, toshi "takes" it, we it it
-    const $bottle = <HTMLDivElement>document.querySelector(".entity.X");
-    console.log("-".repeat(20));
-    console.log("$bottle", $bottle);
+    const $bottle = <HTMLDivElement>document.querySelector("#entities-grid .X");
     if ($bottle) {
       $bottle.classList.add("hidden");
     }
     // if treasure, toshi "digs" it, we show it
-    const $treasure = <HTMLDivElement>document.querySelector(".entity.T");
+    const $treasure = <HTMLDivElement>(
+      document.querySelector("#entities-grid .T")
+    );
     if ($treasure) {
       $treasure.classList.remove("hidden");
     }
