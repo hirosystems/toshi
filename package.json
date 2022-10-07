@@ -2,10 +2,10 @@
   "name": "clearwaters",
   "displayName": "ClearWaters",
   "description": "A learning game",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "hugoclrd",
   "private": true,
-  "license": "GPL-3.0-only",
+  "license": " Apache-2.0",
   "repository": "https://github.com/hirosystems/toshi-extension",
   "engines": {
     "vscode": "^1.59.0"
